@@ -100,8 +100,9 @@ Para validar a convergência das tabelas de rotas e o correto funcionamento do e
 ### Escopo do Cenário de Teste:
 * **Origem:** PC "A" (Departamento de TI) | IP: `192.168.10.10`
 * **Destino:** PC "H" (Almoxarifado) | IP: `192.168.30.100`
-* **Jornada do Pacote:** O tráfego partiu da rede local do Roteador "A", cruzou a rede de trânsito passando pelo Roteador "B" (próximo salto) e foi entregue com sucesso à VLAN de destino no Roteador "C".
+* **Encaminhamento Estático:** O tráfego partiu da rede local do Roteador "A". Com base nas tabelas manuais configuradas via comando `ip route`, o roteador identificou o bloco de destino `192.168.30.0/24`, encaminhou o pacote para o Roteador "B" (próximo salto) através do backbone ponto a ponto, sendo entregue com sucesso à VLAN correspondente no Roteador "C".
 
 Abaixo, a evidência do terminal comprovando 100% de sucesso na comunicação (0% de perda de pacotes):
 
 ![Evidência de Ping Sucesso](img/ping-estatico.png)
+
