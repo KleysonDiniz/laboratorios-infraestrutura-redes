@@ -36,7 +36,7 @@ Clique nos links abaixo para acessar a documentação detalhada, diagramas de to
 
 ## 💻 Resumo Técnico de Configuração CLI (Amostra do Backbone)
 
-*Clique nas abas abaixo para expandir e visualizar as amostras de comandos implementadas nos ativos do projeto (Otimizado para indexação ATS/IAs de Recrutamento):*
+*Clique nas abas abaixo para expandir e visualizar as amostras de comandos implementadas nos ativos do projeto:*
 
 <details>
 <summary><b>🛠️ 1. Clique para expandir os comandos de Trunking & Inter-VLAN (dot1Q)</b></summary>
