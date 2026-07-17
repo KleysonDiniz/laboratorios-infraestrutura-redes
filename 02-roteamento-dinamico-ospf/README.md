@@ -97,9 +97,9 @@ router ospf 1
 Para validar o processo de convergência automática do protocolo OSPF e garantir a alcançabilidade global das rotas de forma dinâmica, foi realizado um teste de ICMP (Ping) entre as duas extremidades da infraestrutura corporativa.
 
 ### Escopo do Cenário de Teste:
-* **Origem:** PC "P" (Almoxarifado - Roteador C) | IP: `192.168.60.100`
-* **Destino:** PC "J" (Setor Operacional - Roteador A) | IP: `192.168.40.70`
-* **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e estabeleceram adjacência (vizinhança) em Area 0. O Roteador "C" aprendeu a rota para o bloco `192.168.40.64/27` de forma totalmente automática através dos anúncios dinâmicos do OSPF, encaminhando os pacotes com sucesso através do backbone até o destino, sem qualquer mapeamento estático manual.
+* **Origem:** PC "N" (Setor Financeiro - Roteador C) | IP: `192.168.60.10`
+* **Destino:** PC "K" (Setor de RH - Roteador A) | IP: `192.168.40.100`
+* **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e estabeleceram adjacência (vizinhança) em Area 0. O Roteador "C" aprendeu a rota para o bloco `192.168.40.96/28` (VLAN 30) de forma totalmente automática através dos anúncios dinâmicos do OSPF, encaminhando os pacotes com sucesso através do backbone até o destino, sem qualquer mapeamento estático manual.
 
 Abaixo, a evidência do terminal comprovando o sucesso na comunicação ponta a ponta:
 
