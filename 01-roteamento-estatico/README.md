@@ -12,45 +12,30 @@ Este projeto demonstra a implementação de uma infraestrutura de rede corporati
 
 ## 📈 Planejamento de Endereçamento IP (VLSM por Localidade)
 
-O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços em cada localidade:
+O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços:
 
 ### Roteador "A" (esquerdo): Rede `192.168.10.0`
-* **VLAN 10 - TI (50 hosts)**: 
-  * Máscara: `255.255.255.192` (/26) | Salto: 64
-  * Rede: `192.168.10.0` | Gateway: `192.168.10.1` | Broadcast: `192.168.10.63`
-  * Intervalo Válido para PCs: `192.168.10.2` até `192.168.10.62`
-* **VLAN 20 - Vendas (20 hosts)**: 
-  * Máscara: `255.255.255.224` (/27) | Salto: 32
-  * Rede: `192.168.10.64` | Gateway: `192.168.10.65` | Broadcast: `192.168.10.95`
-  * Intervalo Válido para PCs: `192.168.10.66` até `192.168.10.94`
-* **VLAN 30 - RH (10 hosts)**: 
-  * Máscara: `255.255.255.240` (/28) | Salto: 16
-  * Rede: `192.168.10.96` | Gateway: `192.168.10.97` | Broadcast: `192.168.10.111`
-  * Intervalo Válido para PCs: `192.168.10.98` até `192.168.10.110`
+
+| Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
+| :--- | :---: | :--- | :---: | :--- | :---: | :--- |
+| **TI** - VLAN 10 | 50 | `255.255.255.192` (/26) | 64 | `.0` / `.63` | `.1` | `.2` até `.62` |
+| **Vendas** - VLAN 20 | 20 | `255.255.255.224` (/27) | 32 | `.64` / `.95` | `.65` | `.66` até `.94` |
+| **RH** - VLAN 30 | 10 | `255.255.255.240` (/28) | 16 | `.96` / `.111` | `.97` | `.98` até `.110` |
 
 ### Roteador "B" (meio): Rede `192.168.20.0`
-* **VLAN 10 - Central de Atendimento (15 hosts)**: 
-  * Máscara: `255.255.255.224` (/27) | Salto: 32
-  * Rede: `192.168.20.0` | Gateway: `192.168.20.1` | Broadcast: `192.168.20.31`
-  * Intervalo Válido para PCs: `192.168.20.2` até `192.168.20.30`
-* **VLAN 20 - Centro de Distribuição (5 hosts)**: 
-  * Máscara: `255.255.255.240` (/28) | Salto: 16
-  * Rede: `192.168.20.32` | Gateway: `192.168.20.33` | Broadcast: `192.168.20.47`
-  * Intervalo Válido para PCs: `192.168.20.34` até `192.168.20.46`
+
+| Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
+| :--- | :---: | :--- | :---: | :--- | :---: | :--- |
+| **Central Atend.** - VLAN 10 | 15 | `255.255.255.224` (/27) | 32 | `.0` / `.31` | `.1` | `.2` até `.30` |
+| **Centro Distrib.** - VLAN 20 | 5 | `255.255.255.240` (/28) | 16 | `.32` / `.47` | `.33` | `.34` até `.46` |
 
 ### Roteador "C" (direito): Rede `192.168.30.0`
-* **VLAN 10 - Setor Financeiro (50 hosts)**: 
-  * Máscara: `255.255.255.192` (/26) | Salto: 64
-  * Rede: `192.168.30.0` | Gateway: `192.168.30.1` | Broadcast: `192.168.30.63`
-  * Intervalo Válido para PCs: `192.168.30.2` até `192.168.30.62`
-* **VLAN 20 - Setor Operacional (20 hosts)**: 
-  * Máscara: `255.255.255.224` (/27) | Salto: 32
-  * Rede: `192.168.30.64` | Gateway: `192.168.30.65` | Broadcast: `192.168.30.95`
-  * Intervalo Válido para PCs: `192.168.30.66` até `192.168.30.94`
-* **VLAN 30 - Almoxarifado (10 hosts)**: 
-  * Máscara: `255.255.255.240` (/28) | Salto: 16
-  * Rede: `192.168.30.96` | Gateway: `192.168.30.97` | Broadcast: `192.168.30.111`
-  * Intervalo Válido para PCs: `192.168.30.98` até `192.168.30.110`
+
+| Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
+| :--- | :---: | :--- | :---: | :--- | :---: | :--- |
+| **Setor Financeiro** - VLAN 10 | 50 | `255.255.255.192` (/26) | 64 | `.0` / `.63` | `.1` | `.2` até `.62` |
+| **Setor Operacional** - VLAN 20 | 20 | `255.255.255.224` (/27) | 32 | `.64` / `.95` | `.65` | `.66` até `.94` |
+| **Almoxarifado** - VLAN 30 | 10 | `255.255.255.240` (/28) | 16 | `.96` / `.111` | `.97` | `.98` até `.110` |
 
 ---
 
@@ -98,6 +83,13 @@ ip route 192.168.20.0 255.255.255.0 10.0.0.5
 
 ## 🧪 Validação e Testes de Conectividade
 
-A conectividade de ponta a ponta cruzando os roteadores de trânsito através de rotas estáticas foi validada e documentada com sucesso através de testes de ICMP (Ping).
+Para validar a convergência das tabelas de rotas e o correto funcionamento do ecossistema, foi realizado um teste de conectividade ICMP (Ping) atravessando toda a infraestrutura física e lógica do laboratório.
+
+### Escopo do Cenário de Teste:
+* **Origem:** PC "A" (Departamento de TI) | IP: `192.168.10.10`
+* **Destino:** PC "H" (Almoxarifado) | IP: `192.168.30.100`
+* **Jornada do Pacote:** O tráfego partiu da rede local do Roteador "A", cruzou a rede de trânsito passando pelo Roteador "B" (próximo salto) e foi entregue com sucesso à VLAN de destino no Roteador "C".
+
+Abaixo, a evidência do terminal comprovando 100% de sucesso na comunicação (0% de perda de pacotes):
 
 ![Evidência de Ping Sucesso](img/ping-estatico.png)
