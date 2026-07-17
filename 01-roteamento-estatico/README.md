@@ -14,7 +14,7 @@ Este projeto demonstra a implementação de uma infraestrutura de rede corporati
 
 O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços em cada localidade:
 
-### Roteador 1: Rede Principal `192.168.10.0`
+### Roteador "A" (esquerdo): Rede `192.168.10.0`
 * **VLAN 10 - TI (50 hosts)**: 
   * Máscara: `255.255.255.192` (/26) | Salto: 64
   * Rede: `192.168.10.0` | Gateway: `192.168.10.1` | Broadcast: `192.168.10.63`
@@ -28,7 +28,7 @@ O projeto utiliza três redes principais distintas, com escopos fatiados de form
   * Rede: `192.168.10.96` | Gateway: `192.168.10.97` | Broadcast: `192.168.10.111`
   * Intervalo Válido para PCs: `192.168.10.98` até `192.168.10.110`
 
-### Roteador 2 (Meio): Rede Principal `192.168.20.0`
+### Roteador "B" (meio): Rede `192.168.20.0`
 * **VLAN 10 - Central de Atendimento (15 hosts)**: 
   * Máscara: `255.255.255.224` (/27) | Salto: 32
   * Rede: `192.168.20.0` | Gateway: `192.168.20.1` | Broadcast: `192.168.20.31`
@@ -38,7 +38,7 @@ O projeto utiliza três redes principais distintas, com escopos fatiados de form
   * Rede: `192.168.20.32` | Gateway: `192.168.20.33` | Broadcast: `192.168.20.47`
   * Intervalo Válido para PCs: `192.168.20.34` até `192.168.20.46`
 
-### Roteador 3: Rede Principal `192.168.30.0`
+### Roteador "C" (direito): Rede `192.168.30.0`
 * **VLAN 10 - Setor Financeiro (50 hosts)**: 
   * Máscara: `255.255.255.192` (/26) | Salto: 64
   * Rede: `192.168.30.0` | Gateway: `192.168.30.1` | Broadcast: `192.168.30.63`
@@ -54,9 +54,10 @@ O projeto utiliza três redes principais distintas, com escopos fatiados de form
 
 ---
 
-## 💻 Configurações Principais na CLI (Exemplo Roteador 1)
+## 💻 Configurações na CLI (Subinterfaces & Tabelas de Roteamento)
 
-Abaixo estão os comandos cruciais utilizados no primeiro Roteador de borda para ativar o entroncamento (*Router-on-a-Stick*) das subinterfaces:
+### 1. Ativação do Gateway Inter-VLAN (Exemplo Roteador "A")
+Comandos cruciais utilizados para ativar o entroncamento (*Router-on-a-Stick*) através do protocolo dot1Q:
 
 ```text
 interface GigabitEthernet0/0.10
@@ -70,6 +71,27 @@ interface GigabitEthernet0/0.20
 interface GigabitEthernet0/0.30
  encapsulation dot1Q 30
  ip address 192.168.10.97 255.255.255.240
+```
+
+### 🛣️ 2. Comandos de Roteamento Estático (`ip route`)
+Para otimização da tabela de roteamento e redução de overhead, foi aplicada a técnica de **Sumarização de Rotas (Classless/24)**. Em vez de declarar cada sub-rede individualmente, os roteadores apontam para o bloco cheio de cada localidade através dos próximos saltos (*Next-Hop*):
+
+**No Roteador "A" (esquerdo):**
+```text
+ip route 192.168.20.0 255.255.255.0 10.0.0.2
+ip route 192.168.30.0 255.255.255.0 10.0.0.2
+```
+
+**No Roteador "B" (meio):**
+```text
+ip route 192.168.10.0 255.255.255.0 10.0.0.1
+ip route 192.168.30.0 255.255.255.0 10.0.0.6
+```
+
+**No Roteador "C" (direito):**
+```text
+ip route 192.168.10.0 255.255.255.0 10.0.0.5
+ip route 192.168.20.0 255.255.255.0 10.0.0.5
 ```
 
 ---
