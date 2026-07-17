@@ -14,6 +14,11 @@ Este projeto demonstra a implementação de uma infraestrutura corporativa multi
 
 O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços:
 
+### 🔗 Redes de Trânsito (Backbone Ponto a Ponto)
+Os links que conectam os roteadores de borda entre si utilizam a máscara **`/30` (255.255.255.252)**. Esta configuração é o padrão absoluto da indústria para redes de trânsito ponto a ponto, pois libera exatamente 2 endereços IP válidos por enlace, eliminando qualquer desperdício de escopo IPv4 no backbone corporativo:
+* **Link Roteador A ↔ Roteador B:** Rede `10.0.0.0/30` (IPs úteis: `.1` e `.2`)
+* **Link Roteador B ↔ Roteador C:** Rede `10.0.0.4/30` (IPs úteis: `.5` e `.6`)
+
 ### Roteador "A" (esquerdo): Rede `192.168.40.0`
 
 | Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
@@ -42,6 +47,15 @@ O projeto utiliza três redes principais distintas, com escopos fatiados de form
 ## 💻 Configurações na CLI (Processo OSPF & Máscaras Wildcard)
 
 Diferente do roteamento estático, o OSPF calcula os caminhos dinamicamente. Para anunciar as redes locais e fechar as adjacências de vizinhança nas redes de trânsito, aplicamos o processo OSPF em Área Única associado ao cálculo da **Máscara Wildcard (Inversa)**.
+
+### 🔀 1. Configuração de Trunking nos Switches (IEEE 802.1Q)
+Para suportar as subinterfaces lógicas configuradas nos roteadores de borda, a porta de uplink do switch foi definida em modo tronco:
+```text
+interface GigabitEthernet0/1
+ switchport mode trunk
+```
+
+### 🛠️ 2. Ativação do Protocolo OSPF v2
 
 **No Roteador "A" (esquerdo):**
 ```text
@@ -74,18 +88,18 @@ router ospf 1
 ```
 
 * **Por que usar `log-adjacency-changes`?** Garante o envio de logs informativos para o terminal CLI sempre que ocorrerem mudanças de estado de adjacência com roteadores vizinhos, otimizando o monitoramento e troubleshooting do backbone.
-* **Por que as máscaras usam a notação `0.0.0.X`?** O OSPF utiliza a Máscara Wildcard, que é o inverso matemático da máscara de sub-rede comum. Isso indica ao protocolo exatamente qual escopo de rede local e de trânsito ele deve inspecionar e anunciar na Área 0.
+* **Por que as máscaras usam a notação `0.0.0.X`?** O OSPF utiliza a Máscara Wildcard, que é o inverso matemático da máscara de sub-rede comum. Isso indica ao protocolo exatamente qual escopo de rede ele deve inspecionar e anunciar na Área 0 de forma automatizada.
 
 ---
 
 ## 🧪 Validação e Testes de Conectividade
 
-Para validar o processo de convergência automática do protocolo OSPF e garantir a alcançabilidade global das rotas de forma dinâmica, foi realizado um teste de ICMP (Ping) entre extremidades opostas da infraestrutura.
+Para validar o processo de convergência automática do protocolo OSPF e garantir a alcançabilidade global das rotas de forma dinâmica, foi realizado um teste de ICMP (Ping) entre as duas extremidades da infraestrutura corporativa.
 
 ### Escopo do Cenário de Teste:
-* **Origem:** PC "A" (Setor Financeiro - Roteador A) | IP: `192.168.40.10`
-* **Destino:** PC "H" (Almoxarifado - Roteador C) | IP: `192.168.60.100`
-* **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e fecharam vizinhança em Area 0. O Roteador "A" aprendeu a rota para a rede `192.168.60.0/24` dinamicamente através dos anúncios OSPF propagados na topologia, realizando o encaminhamento automático dos pacotes sem dependência de mapeamento manual.
+* **Origem:** PC "P" (Almoxarifado - Roteador C) | IP: `192.168.60.100`
+* **Destino:** PC "J" (Setor Operacional - Roteador A) | IP: `192.168.40.70`
+* **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e estabeleceram adjacência (vizinhança) em Area 0. O Roteador "C" aprendeu a rota para o bloco `192.168.40.64/27` de forma totalmente automática através dos anúncios dinâmicos do OSPF, encaminhando os pacotes com sucesso através do backbone até o destino, sem qualquer mapeamento estático manual.
 
 Abaixo, a evidência do terminal comprovando o sucesso na comunicação ponta a ponta:
 
