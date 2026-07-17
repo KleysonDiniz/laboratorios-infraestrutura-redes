@@ -14,6 +14,11 @@ Este projeto demonstra a implementação de uma infraestrutura de rede corporati
 
 O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços:
 
+### 🔗 Redes de Trânsito (Backbone Ponto a Ponto)
+Os links que conectam os roteadores de borda entre si utilizam a máscara **`/30` (255.255.255.252)**. Esta configuração é o padrão absoluto da indústria para redes de trânsito ponto a ponto, pois libera exatamente 2 endereços IP válidos por enlace, eliminando qualquer desperdício de escopo IPv4 no backbone corporativo:
+* **Link Roteador A ↔ Roteador B:** Rede `10.0.0.0/30` (IPs úteis: `.1` e `.2`)
+* **Link Roteador B ↔ Roteador C:** Rede `10.0.0.4/30` (IPs úteis: `.5` e `.6`)
+
 ### Roteador "A" (esquerdo): Rede `192.168.10.0`
 
 | Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
@@ -58,7 +63,14 @@ interface GigabitEthernet0/0.30
  ip address 192.168.10.97 255.255.255.240
 ```
 
-### 🛣️ 2. Comandos de Roteamento Estático (`ip route`)
+### 🔀 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
+Para suportar o tráfego de múltiplas VLANs trafegando simultaneamente pelo mesmo cabo físico até o roteador, a porta de uplink do switch principal foi configurada explicitamente em modo tronco (*Trunk*):
+```text
+interface GigabitEthernet0/1
+ switchport mode trunk
+```
+
+### 🛣️ 3. Comandos de Roteamento Estático (`ip route`)
 Para otimização da tabela de roteamento e redução de overhead, foi aplicada a técnica de **Sumarização de Rotas (Classless/24)**. Em vez de declarar cada sub-rede individualmente, os roteadores apontam para o bloco cheio de cada localidade através dos próximos saltos (*Next-Hop*):
 
 **No Roteador "A" (esquerdo):**
