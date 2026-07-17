@@ -41,10 +41,9 @@ O projeto utiliza três redes principais distintas, com escopos fatiados de form
 
 ## 💻 Configurações na CLI (Processo OSPF & Máscaras Wildcard)
 
-Diferente do roteamento estático, o OSPF calcula os caminhos dinamicamente. Para anunciar as redes locais e fechar as adjacências de vizinhança nas redes de trânsito, aplicamos o cálculo da **Máscara Wildcard (Inversa)**.
+Diferente do roteamento estático, o OSPF calcula os caminhos dinamicamente. Para anunciar as redes locais e fechar as adjacências de vizinhança nas redes de trânsito, aplicamos o processo OSPF em Área Única associado ao cálculo da **Máscara Wildcard (Inversa)**.
 
-### 🛠️ Configuração do Protocolo OSPF (Exemplo Roteador "A")
-
+**No Roteador "A" (esquerdo):**
 ```text
 router ospf 1
  log-adjacency-changes
@@ -54,7 +53,28 @@ router ospf 1
  network 192.168.40.96 0.0.0.15 area 0
 ```
 
-* **Por que a máscara mudou para `0.0.0.X`?** O OSPF utiliza a Máscara Wildcard, que é o inverso matemático da máscara de sub-rede comum (Subtraímos `255.255.255.255` pela máscara atual). Isso indica ao protocolo exatamente qual escopo de rede ele deve inspecionar e anunciar para os roteadores vizinhos de forma automatizada.
+**No Roteador "B" (meio):**
+```text
+router ospf 1
+ log-adjacency-changes
+ network 10.0.0.0 0.0.0.3 area 0
+ network 10.0.0.4 0.0.0.3 area 0
+ network 192.168.50.0 0.0.0.31 area 0
+ network 192.168.50.32 0.0.0.15 area 0
+```
+
+**No Roteador "C" (direito):**
+```text
+router ospf 1
+ log-adjacency-changes
+ network 10.0.0.4 0.0.0.3 area 0
+ network 192.168.60.0 0.0.0.63 area 0
+ network 192.168.60.64 0.0.0.31 area 0
+ network 192.168.60.96 0.0.0.15 area 0
+```
+
+* **Por que usar `log-adjacency-changes`?** Garante o envio de logs informativos para o terminal CLI sempre que ocorrerem mudanças de estado de adjacência com roteadores vizinhos, otimizando o monitoramento e troubleshooting do backbone.
+* **Por que as máscaras usam a notação `0.0.0.X`?** O OSPF utiliza a Máscara Wildcard, que é o inverso matemático da máscara de sub-rede comum. Isso indica ao protocolo exatamente qual escopo de rede local e de trânsito ele deve inspecionar e anunciar na Área 0.
 
 ---
 
@@ -63,7 +83,7 @@ router ospf 1
 Para validar o processo de convergência automática do protocolo OSPF e garantir a alcançabilidade global das rotas de forma dinâmica, foi realizado um teste de ICMP (Ping) entre extremidades opostas da infraestrutura.
 
 ### Escopo do Cenário de Teste:
-* **Origem:** PC "A" (Setor Financeiro) | IP: `192.168.40.10`
+* **Origem:** PC "A" (Setor Financeiro - Roteador A) | IP: `192.168.40.10`
 * **Destino:** PC "H" (Almoxarifado - Roteador C) | IP: `192.168.60.100`
 * **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e fecharam vizinhança em Area 0. O Roteador "A" aprendeu a rota para a rede `192.168.60.0/24` dinamicamente através dos anúncios OSPF propagados na topologia, realizando o encaminhamento automático dos pacotes sem dependência de mapeamento manual.
 
