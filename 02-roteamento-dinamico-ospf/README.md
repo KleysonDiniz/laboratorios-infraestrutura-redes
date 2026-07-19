@@ -44,7 +44,7 @@ Os links que conectam os roteadores de borda entre si utilizam a máscara **`/30
 
 ---
 
-## ⚙️ Configurações na CLI (Processo OSPF & Máscaras Wildcard)
+## 💻 Configurações na CLI (Processo OSPF & Máscaras Wildcard)
 
 Diferente do roteamento estático, o OSPF calcula os caminhos dinamicamente. Para anunciar as redes locais e fechar as adjacências de vizinhança nas redes de trânsito, aplicamos o processo OSPF em Área Única associado ao cálculo da **Máscara Wildcard (Inversa)**.
 
