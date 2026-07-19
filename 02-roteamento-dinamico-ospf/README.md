@@ -44,18 +44,34 @@ Os links que conectam os roteadores de borda entre si utilizam a máscara **`/30
 
 ---
 
-## 💻 Configurações na CLI (Processo OSPF & Máscaras Wildcard)
+## ⚙️ Configurações na CLI (Processo OSPF & Máscaras Wildcard)
 
 Diferente do roteamento estático, o OSPF calcula os caminhos dinamicamente. Para anunciar as redes locais e fechar as adjacências de vizinhança nas redes de trânsito, aplicamos o processo OSPF em Área Única associado ao cálculo da **Máscara Wildcard (Inversa)**.
 
-### 🔀 1. Configuração de Trunking nos Switches (IEEE 802.1Q)
+### 🔌 1. Ativação do Gateway Inter-VLAN (Exemplo Roteador "A")
+Comandos cruciais utilizados para ativar o entroncamento (*Router-on-a-Stick*) através do protocolo dot1Q:
+
+```text
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.40.1 255.255.255.192
+
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.40.65 255.255.255.224
+
+interface GigabitEthernet0/0.30
+ encapsulation dot1Q 30
+ ip address 192.168.40.97 255.255.255.240
+```
+### 🏷️ 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
 Para suportar as subinterfaces lógicas configuradas nos roteadores de borda, a porta de uplink do switch foi definida em modo tronco:
 ```text
 interface GigabitEthernet0/1
  switchport mode trunk
 ```
 
-### 🛠️ 2. Ativação do Protocolo OSPF v2
+### 🔄 2. Ativação do Protocolo OSPF v2
 
 **No Roteador "A" (esquerdo):**
 ```text
