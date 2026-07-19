@@ -46,7 +46,7 @@ Os links que conectam os roteadores de borda entre si utilizam a máscara **`/30
 
 ## 💻 Configurações na CLI (Subinterfaces & Tabelas de Roteamento)
 
-### 1. Ativação do Gateway Inter-VLAN (Exemplo Roteador "A")
+### 🔌 1. Ativação do Gateway Inter-VLAN (Exemplo Roteador "A")
 Comandos cruciais utilizados para ativar o entroncamento (*Router-on-a-Stick*) através do protocolo dot1Q:
 
 ```text
@@ -63,7 +63,7 @@ interface GigabitEthernet0/0.30
  ip address 192.168.10.97 255.255.255.240
 ```
 
-### 🔀 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
+### 🏷️ 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
 Para suportar o tráfego de múltiplas VLANs trafegando simultaneamente pelo mesmo cabo físico até o roteador, a porta de uplink do switch principal foi configurada explicitamente em modo tronco (*Trunk*):
 ```text
 interface GigabitEthernet0/1
