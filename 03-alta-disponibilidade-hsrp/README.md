@@ -37,18 +37,18 @@ O **Roteador_Principal** foi definido como o gateway prioritário (`priority 110
 ```cisco
 ! Configuração no Roteador_Principal
 interface GigabitEthernet0/0
- ip address 192.168.70.2 255.255.255.0
- standby 1 ip 192.168.70.1
- standby 1 priority 110
- standby 1 preempt
- standby 1 track GigabitEthernet 0/1
-!
+ip address 192.168.70.2 255.255.255.0
+standby 1 ip 192.168.70.1
+standby 1 priority 110
+standby 1 preempt
+standby 1 track GigabitEthernet 0/1
+
 interface GigabitEthernet0/1
- ip address 10.0.0.3 255.255.255.248
-!
+ip address 10.0.0.3 255.255.255.248
+
 router ospf 1
- network 10.0.0.0 0.0.0.7 area 0
- network 192.168.70.0 0.0.0.255 area 0
+network 10.0.0.0 0.0.0.7 area 0
+network 192.168.70.0 0.0.0.255 area 0
 ```
 
 ### 🛠️ 2. Gateway de Redundância / Standby (Roteador_Backup)
@@ -57,17 +57,17 @@ O **Roteador_Backup** foi configurado com a prioridade customizada de `105` para
 ```cisco
 ! Configuração no Roteador_Backup
 interface GigabitEthernet0/0
- ip address 192.168.70.3 255.255.255.0
- standby 1 ip 192.168.70.1
- standby 1 priority 105
- standby 1 preempt
-!
+ip address 192.168.70.3 255.255.255.0
+standby 1 ip 192.168.70.1
+standby 1 priority 105
+standby 1 preempt
+
 interface GigabitEthernet0/1
- ip address 10.0.0.4 255.255.255.248
-!
+ip address 10.0.0.4 255.255.255.248
+
 router ospf 1
- network 10.0.0.0 0.0.0.7 area 0
- network 192.168.70.0 0.0.0.255 area 0
+network 10.0.0.0 0.0.0.7 area 0
+network 192.168.70.0 0.0.0.255 area 0
 ```
 
 ### 🛠️ 3. Ativo de Distribuição Superior (Switch_Core - Modelo 3650)
@@ -76,20 +76,20 @@ Configuração do processo OSPF no ativo de topo por meio de Interface VLAN lóg
 ```cisco
 ! Configuração no Switch_Core
 ip routing
-!
+
 interface vlan 10
- ip address 10.0.0.1 255.255.255.248
- no shutdown
+ip address 10.0.0.1 255.255.255.248
+no shutdown
 exit
-!
+
 interface range GigabitEthernet1/0/1 - 2
- switchport mode access
- switchport access vlan 10
+switchport mode access
+switchport access vlan 10
 exit
-!
+
 router ospf 1
- log-adjacency-changes
- network 10.0.0.0 0.0.0.7 area 0
+log-adjacency-changes
+network 10.0.0.0 0.0.0.7 area 0
 ```
 
 ### 🧠 4. Mecanismo de Inteligência (Interface Tracking)
