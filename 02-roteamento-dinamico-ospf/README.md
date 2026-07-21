@@ -120,3 +120,10 @@ Para validar o processo de convergência automática do protocolo OSPF e garanti
 Abaixo, a evidência do terminal comprovando o sucesso na comunicação ponta a ponta:
 
 ![Evidência de Ping Sucesso](img/ping-dinamico.png)
+
+## 🔄 Evolução deste Laboratório: Alta Disponibilidade
+
+Com o roteamento dinâmico OSPF operacional nesta topologia, o próximo passo essencial de engenharia é mitigar o risco de falhas físicas de hardware na borda da rede corporativa.
+
+Para analisar como garantir a redundância de primeiro salto e manter os hosts online mesmo em quedas críticas, acesse a evolução deste projeto com o protocolo HSRP:
+👉 **[Acessar Laboratório 03: Alta Disponibilidade (HSRP)](../03-alta-disponibilidade-hsrp/)**
