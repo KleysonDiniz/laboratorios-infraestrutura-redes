@@ -106,3 +106,9 @@ Abaixo, a evidência do terminal comprovando 100% de sucesso na comunicação (0
 
 ![Evidência de Ping Sucesso](img/ping-estatico.png)
 
+## 🔄 Evolução deste Laboratório: Roteamento Dinâmico
+
+Embora o roteamento estático com VLSM seja extremamente seguro e eficiente para redes de pequeno porte, ele se torna complexo de gerenciar manualmente à medida que a infraestrutura corporativa cresce e ganha novos caminhos redundantes.
+
+Para analisar como automatizar a descoberta de redes e acelerar o tempo de convergência em larga escala, acesse a evolução deste projeto com o protocolo OSPF:
+👉 **[Acessar Laboratório 02: Roteamento Dinâmico (OSPF)](../02-roteamento-dinamico-ospf/)**
