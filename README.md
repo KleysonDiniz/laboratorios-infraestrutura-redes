@@ -5,7 +5,7 @@ Bem-vindo ao meu portfólio técnico de infraestrutura de redes corporativas. Es
 ---
 
 ## 👨‍💻 Sobre Mim
-* **Formação:** Bacharel em Ciência da Computação (Concluído) e Pós-graduando em Engenharia de Redes.
+* **Formação:** Bacharel em Ciência da Computação (Concluído) e Pós-graduando em Engenharia de Redes (em conclusão).
 * **Certificações/Cursos:** Formação preparatória MTCNA (MikroTik RouterOS) em conclusão; Estágios institucionais de Linux Ubuntu e Redes TCP/IP realizados no Centro de Telemática do Exército Brasileiro.
 * **Background Profissional:** 8 anos de serviço no Exército Brasileiro, desenvolvendo sólida disciplina operacional, conformidade com processos rígidos de segurança, liderança e resiliência sob pressão.
 
