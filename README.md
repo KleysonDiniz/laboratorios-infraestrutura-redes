@@ -1,67 +1,45 @@
-# Laboratórios Práticos de Infraestrutura e Redes de Computadores 🚀
+# 🌐 Repositório de Engenharia, Infraestrutura e Segurança de Redes
 
-Repositório dedicado à documentação técnica, mapeamento topológico e validação de conectividade lógica em ambientes de redes corporativas de larga escala.
-
----
-
-## 🛠️ Tecnologias e Simuladores Utilizados
-* **Cisco Packet Tracer**: CLI de ativos Cisco e simulação de tráfego corporativo.
-* **Protocolos e Padrões**: OSPF v2, Roteamento Estático Sumarizado, IEEE 802.1Q (dot1Q), IPv4 (VLSM/CIDR), TCP/IP.
+Bem-vindo ao meu portfólio técnico de infraestrutura de redes corporativas. Este repositório funciona como um HUB centralizado para documentar, validar e demonstrar a aplicação prática de protocolos de roteamento, resiliência de camada 3, alta disponibilidade e segurança da informação (*Hardening*).
 
 ---
 
-## 📂 Projetos Implementados (Acesse os Laboratórios)
-
-Clique nos links abaixo para acessar a documentação detalhada, diagramas de topologia e validações de ping de cada cenário:
-
-### [📁 01. Laboratório de Roteamento Estático Corporativo](./01-roteamento-estatico/)
-* Mapeamento manual de tabelas de roteamento com técnica de Sumarização de Rotas para redução de overhead de CPU nos ativos de borda.
-
-### [📁 02. Laboratório de Roteamento Dinâmico (OSPF v2)](./02-roteamento-dinamico-ospf/)
-* Configuração e validação de convergência automatizada, trocas de pacotes Hello, gerenciamento de adjacências e cálculo de máscaras inversas.
+## 👨‍💻 Sobre Mim
+* **Formação:** Bacharel em Ciência da Computação (Concluído) e Pós-graduando em Engenharia de Redes.
+* **Certificações/Cursos:** Formação preparatória MTCNA (MikroTik RouterOS) em conclusão; Estágios institucionais de Linux Ubuntu e Redes TCP/IP realizados no Centro de Telemática do Exército Brasileiro.
+* **Background Profissional:** 8 anos de serviço no Exército Brasileiro, desenvolvendo sólida disciplina operacional, conformidade com processos rígidos de segurança, liderança e resiliência sob pressão.
 
 ---
 
-## 📐 Cenários de Switching e Otimização IP (Fundamentos Aplicados)
+## 🛠️ Ecossistema de Laboratórios Práticos (Sumário do Portfólio)
 
-### 1. Arquitetura de Switching Inter-VLAN
-* **Objetivo**: Segmentação lógica do tráfego interno por departamentos corporativos para otimização de domínios de transmissão e aumento de conformidade de segurança.
-* **Escopo Técnico**: Criação de VLANs corporativas, isolamento de portas (Modo Access e Trunking) e implementação de roteamento Inter-VLAN via subinterfaces lógicas ajustadas em roteadores (*Router-on-a-Stick*) através do protocolo dot1Q (802.1Q).
+Abaixo estão indexados todos os projetos desenvolvidos em ambientes simulados (**Cisco Packet Tracer**) e emulados (**EVE-NG / Multi-Vendor**), contendo topologias, scripts CLI completos e evidências de validação (*Troubleshooting*):
 
-### 2. Otimização de Escopo IPv4 (VLSM & CIDR)
-* **Objetivo**: Planejamento analítico e dimensionamento inteligente de blocos de sub-redes para eliminação de desperdício de endereços IP de hosts.
-* **Escopo Técnico**: Partição de escopo de rede IP sob medida utilizando cálculos de blocos lógicos VLSM e notações CIDR com base nas necessidades de volumetria de cada departamento (TI, Vendas, RH, Finanças, Operações e Almoxarifado).
+### 📁 [01-roteamento-estatico](./01-roteamento-estatico/)
+* **Foco:** Lógica de Encaminhamento e Arquitetura de Sub-redes.
+* **Tecnologias:** Endereçamento IPv4, Subnetting cirúrgico com Máscaras de Tamanho Variável (**VLSM/CIDR**), Sumarização de Rotas e Segmentação de Camada 2 via VLANs com encapsulamento `802.1Q` (*Router-on-a-Stick*).
+
+### 📁 [02-roteamento-dinamico-ospf](./02-roteamento-dinamico-ospf/)
+* **Foco:** Convergência Automatizada de Larga Escala.
+* **Tecnologias:** Protocolo de Roteamento Dinâmico **OSPF v2 (Area 0)**, formação de adjacências de vizinhança (*Neighbor Adjacency*), dimensionamento com máscaras wildcard e auditoria de logs de trânsito corporativo.
+
+### 📁 [03-alta-disponibilidade-hsrp](./03-alta-disponibilidade-hsrp/)
+* **Foco:** Resiliência Crítica e Tolerância a Falhas (*Fault Tolerant*).
+* **Tecnologias:** Redundância de Gateway via **FHRP/HSRP (Grupo 1)** com IP Virtual flutuante, mecanismo inteligente de **Interface Tracking** monitorando a WAN e comando de preempção automática (*Preempt*) para failover de alta velocidade.
+* **Evidência Prática:** Validação de conectividade ICMP apresentando perda de apenas 1 pacote durante queda física de link.
+
+### 📁 [04-seguranca-ospf-md5](./04-seguranca-ospf-md5/) ⏳ *Em Breve*
+* **Foco:** Hardening de Protocolos de Roteamento.
+* **Tecnologias:** Blindagem da tabela de rotas do backbone corporativo através da implementação de autenticação criptografada **MD5 no OSPF**, mitigando ataques de injeção de rotas maliciosas na rede.
+
+### 📁 [05-seguranca-switching](./05-seguranca-switching/) ⏳ *Em Breve*
+* **Foco:** Mitigação de Ataques na Camada 2 (LAN).
+* **Tecnologias:** Segurança de borda local através de **Port Security** (bloqueio de MACs desconhecidos) e **DHCP Snooping** (mitigação de servidores DHCP falsos na infraestrutura).
 
 ---
 
-## 💻 Resumo Técnico de Configuração CLI (Amostra do Backbone)
+## 🔬 Metodologia de Validação Técnica
+Todos os cenários são documentados seguindo rigor documental corporativo internacional. As validações contam com análises de tabelas de roteamento (ex: Equal-Cost Multi-Path - ECMP no switch core) e testes de estresse físicos para comprovar a estabilidade da engenharia proposta antes do deploy em produção.
 
-*Clique nas abas abaixo para expandir e visualizar as amostras de comandos implementadas nos ativos do projeto:*
-
-<details>
-<summary><b>🛠️ 1. Clique para expandir os comandos de Trunking & Inter-VLAN (dot1Q)</b></summary>
-
-```text
-interface GigabitEthernet0/1
- switchport mode trunk
-!
-interface GigabitEthernet0/0.10
- encapsulation dot1Q 10
- ip address 192.168.10.1 255.255.255.192
-```
-</details>
-
-<details>
-<summary><b>🛣️ 2. Clique para expandir os comandos de Roteamento Estático vs OSPF</b></summary>
-
-```text
-# Engenharia Estática (Sumarizada)
-ip route 192.168.20.0 255.255.255.0 10.0.0.2
-ip route 192.168.30.0 255.255.255.0 10.0.0.2
-
-# Engenharia Dinâmica (OSPF Wildcard)
-router ospf 1
- log-adjacency-changes
- network 192.168.40.0 0.0.0.63 area 0
-```
-</details>
+---
+*Alinhado com objetivos de atuação em ambientes híbridos corporativos e preparação analítica para Concursos de TI (Infraestrutura).*
