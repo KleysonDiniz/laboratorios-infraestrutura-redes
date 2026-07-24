@@ -66,9 +66,13 @@ Abaixo, a prova de sucesso da segurança: o `Roteador_Invasor` perde todos os vi
 
 ---
 
-## 🏁 Conclusão e Próximos Passos
+🏁 Conclusão e Próximos Passos
 
 A implementação do Hardening OSPF com MD5 garantiu a integridade do plano de controle e da tabela de rotas da WAN corporativa.
 
 🚀 **Próximos Passos: Segurança de Camada 2**
-Agora que o trânsito entre roteadores está criptografado e seguro, o próximo risco crítico a mitigar são os ataques internos vindos de dentro della rede local na Camada 2 (Enlace), como usuários maliciosos clonando servidores DHCP ou estourando a tabela MAC das portas dos switches corporativos. Veja a solução com DHCP Snooping e Port Security no **Laboratório 05**.
+
+Agora que o trânsito entre roteadores está criptografado e seguro, o próximo risco crítico a mitigar são os ataques internos vindos de dentro da rede local na Camada 2 (Enlace), como usuários maliciosos clonando servidores DHCP ou estourando a tabela MAC das portas dos switches corporativos. Veja a solução com DHCP Snooping e Port Security no link abaixo:
+
+👉 **[Acessar Projeto 05: Segurança de Switching (Port Security & DHCP Snooping)](../05-seguranca-switching/)**
+
