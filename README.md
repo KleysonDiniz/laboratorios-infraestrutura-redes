@@ -28,7 +28,7 @@ Abaixo estão indexados todos os projetos desenvolvidos em ambientes simulados (
 * **Tecnologias:** Redundância de Gateway via **FHRP/HSRP (Grupo 1)** com IP Virtual flutuante, mecanismo inteligente de **Interface Tracking** monitorando a WAN e comando de preempção automática (*Preempt*) para failover de alta velocidade.
 * **Evidência Prática:** Validação de conectividade ICMP apresentando perda de apenas 1 pacote durante queda física de link.
 
-### 📁 [04-seguranca-ospf-md5](./04-seguranca-ospf-md5/) ⏳ *Em Breve*
+### 📁 [04-seguranca-ospf-md5](./04-seguranca-ospf-md5/)
 * **Foco:** Hardening de Protocolos de Roteamento.
 * **Tecnologias:** Blindagem da tabela de rotas do backbone corporativo através da implementação de autenticação criptografada **MD5 no OSPF**, mitigando ataques de injeção de rotas maliciosas na rede.
 
