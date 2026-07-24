@@ -9,7 +9,7 @@ Este projeto demonstra a vulnerabilidade do protocolo OSPF v2 em sua configuraç
 
 Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WAN) e da rede local protegida (LAN):
 
-![Topologia do Laboratório](01-topologia.png)
+![Topologia do Laboratório](img/01-topologia.png)
 
 ### 📊 Tabela de Endereçamento:
 *   **Rede de Trânsito WAN:** `10.4.4.0/24` (Matriz: `.1` | Filial: `.2` | Invasor: `.66`)
@@ -24,12 +24,12 @@ Sem segurança ativa, o protocolo OSPF aceita adjacências de qualquer dispositi
 ### Evidência do Ataque no Roteador_Invasor:
 Abaixo, comprova-se o invasor com vizinhança em estado `FULL` e a rota interna `192.168.44.0/24` injetada em sua tabela lógica:
 
-![Invasor com Acesso](02-cenario-vulnerabilidade.png)
+![Invasor com Acesso](img/02-cenario-vulnerabilidade.png)
 
 ### Visão da Infraestrutura Corporativa Comprometida:
 Tanto a Matriz quanto a Filial aceitam o vizinho malicioso (`66.66.66.66`) sem nenhuma restrição:
 
-![Vizinhança Insegura Geral](03-vendo-invasor.png)
+![Vizinhança Insegura Geral](img/03-vendo-invasor.png)
 
 ---
 
@@ -46,7 +46,7 @@ ip ospf message-digest-key 1 md5 kleyson
 ### O Efeito Imediato do Hardening na Matriz:
 Assim que o comando é inserido, o roteador exige pacotes assinados digitalmente. Como os vizinhos não possuem a chave, a vizinhança é ejetada imediatamente por estouro de temporizador (*Dead timer expired*):
 
-![Queda da Vizinhança](04-queda-vizinhanca-hardening.png)
+![Queda da Vizinhança](img/04-queda-vizinhanca-hardening.png)
 
 > 💡 *Dica de Diagnóstico: Em ambientes de produção, o comando `debug ip ospf adj` pode ser utilizado em modo de privilégio para analisar erros de incompatibilidade de chaves em tempo real.*
 
@@ -55,14 +55,14 @@ Assim que o comando é inserido, o roteador exige pacotes assinados digitalmente
 ## 🏆 4. Validação Final do Ambiente Seguro
 
 ### 1. Reestabelecimento do Link Confiável
-Após padronizar a mesma chave na Filial, o link legítimo reativa a adjacência em modo seguro. O invasor permanece bloqueado permanentemente por não possuir a senha:
+Após padronizar a mesma chave criptográfica na Filial, os roteadores legítimos (Roteador_Matriz e Roteador_Filial) restabelecem a adjacência OSPF em modo seguro (estado FULL). Como evidenciado abaixo, o Roteador_Invasor foi completamente ejetado e não aparece mais na tabela de vizinhos, bloqueado permanentemente por não possuir a senha: 
 
-![Rede Segura Restaurada](05-restauracao-conexao.png)
+![Rede Segura Restaurada](img/05-restauracao-conexao.png)
 
 ### 2. Isolamento e Cegueira Total do Atacante
 Abaixo, a prova de sucesso da segurança: o `Roteador_Invasor` perde todos os vizinhos OSPF e a tabela de rotas perde o conhecimento sobre a rede privada da empresa (a linha com a rota **O** sumiu completamente):
 
-![Invasor Bloqueado](06-bloqueio-confirmado.png)
+![Invasor Bloqueado](img/06-bloqueio-confirmado.png)
 
 ---
 
