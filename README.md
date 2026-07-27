@@ -1,45 +1,49 @@
-# 🌐 Repositório de Engenharia, Infraestrutura e Segurança de Redes
+# 🌐 Repositório de Infraestrutura e Segurança de Redes
 
-Bem-vindo ao meu portfólio técnico de infraestrutura de redes corporativas. Este repositório funciona como um HUB centralizado para documentar, validar e demonstrar a aplicação prática de protocolos de roteamento, resiliência de camada 3, alta disponibilidade e segurança da informação (*Hardening*).
+## 📝 Visão Geral do Ecossistema
+Este repositório funciona como um **HUB centralizado** destinado a documentar, validar e demonstrar a aplicação prática de engenharia de tráfego, resiliência de Camada 3, alta disponibilidade e blindagem de ativos (Hardening) contra vetores de ataque reais. 
+
+Todos os cenários foram construídos seguindo as boas práticas dos fabricantes e os padrões oficiais da indústria (como **IEEE** e **IETF**), sendo validados por meio de análises de tabelas de roteamento e testes de estresse físicos (Troubleshooting).
 
 ---
 
 ## 👨‍💻 Sobre Mim
-* **Formação:** Bacharel em Ciência da Computação (Concluído) e Pós-graduando em Engenharia de Redes (em conclusão).
-* **Certificações/Cursos:** Formação preparatória MTCNA (MikroTik RouterOS) em conclusão; Estágios institucionais de Linux Ubuntu e Redes TCP/IP realizados no Centro de Telemática do Exército Brasileiro.
-* **Background Profissional:** 8 anos de serviço no Exército Brasileiro, desenvolvendo sólida disciplina operacional, conformidade com processos rígidos de segurança, liderança e resiliência sob pressão.
+
+* **Formação:** Bacharel em Ciência da Computação (Concluído) e Pós-graduando em Engenharia de Redes de Computadores (Em conclusão).
+* **Certificações/Cursos:** Formação preparatória para a certificação internacional **MikroTik Certified Network Associate (MTCNA)** em conclusão; Estágios institucionais de Linux Ubuntu e Redes TCP/IP realizados no Centro de Telemática do Exército Brasileiro.
+* **Background Profissional:** 8 anos de serviço ativo no Exército Brasileiro, desenvolvendo sólida disciplina operacional, conformidade com processos rígidos de segurança, liderança, gestão de incidentes sob pressão (ITSM) e resiliência.
 
 ---
 
-## 🛠️ Ecossistema de Laboratórios Práticos (Sumário do Portfólio)
+## 🔬 Linha do Tempo dos Laboratórios (Sumário Técnico)
 
-Abaixo estão indexados todos os projetos desenvolvidos em ambientes simulados (**Cisco Packet Tracer**) e emulados (**EVE-NG / Multi-Vendor**), contendo topologias, scripts CLI completos e evidências de validação (*Troubleshooting*):
+Abaixo estão indexados os projetos desenvolvidos. Cada diretório contém sua respectiva topologia, scripts CLI limpos e evidências analíticas de validação de tráfego.
 
-### 📁 [01-roteamento-estatico](./01-roteamento-estatico/)
-* **Foco:** Lógica de Encaminhamento e Arquitetura de Sub-redes.
-* **Tecnologias:** Endereçamento IPv4, Subnetting cirúrgico com Máscaras de Tamanho Variável (**VLSM/CIDR**), Sumarização de Rotas e Segmentação de Camada 2 via VLANs com encapsulamento `802.1Q` (*Router-on-a-Stick*).
-
-### 📁 [02-roteamento-dinamico-ospf](./02-roteamento-dinamico-ospf/)
-* **Foco:** Convergência Automatizada de Larga Escala.
-* **Tecnologias:** Protocolo de Roteamento Dinâmico **OSPF v2 (Area 0)**, formação de adjacências de vizinhança (*Neighbor Adjacency*), dimensionamento com máscaras wildcard e auditoria de logs de trânsito corporativo.
-
-### 📁 [03-alta-disponibilidade-hsrp](./03-alta-disponibilidade-hsrp/)
-* **Foco:** Resiliência Crítica e Tolerância a Falhas (*Fault Tolerant*).
-* **Tecnologias:** Redundância de Gateway via **FHRP/HSRP (Grupo 1)** com IP Virtual flutuante, mecanismo inteligente de **Interface Tracking** monitorando a WAN e comando de preempção automática (*Preempt*) para failover de alta velocidade.
-* **Evidência Prática:** Validação de conectividade ICMP apresentando perda de apenas 1 pacote durante queda física de link.
-
-### 📁 [04-seguranca-ospf-md5](./04-seguranca-ospf-md5/)
-* **Foco:** Hardening de Protocolos de Roteamento.
-* **Tecnologias:** Blindagem da tabela de rotas do backbone corporativo através da implementação de autenticação criptografada **MD5 no OSPF**, mitigando ataques de injeção de rotas maliciosas na rede.
-
-### 📁 [05-seguranca-switching](./05-seguranca-switching/) ⏳ *Em Breve*
-* **Foco:** Mitigação de Ataques na Camada 2 (LAN).
-* **Tecnologias:** Segurança de borda local através de **Port Security** (bloqueio de MACs desconhecidos) e **DHCP Snooping** (mitigação de servidores DHCP falsos na infraestrutura).
+| Laboratório | Foco de Engenharia | Principais Tecnologias / Protocolos |
+| :--- | :--- | :--- |
+| [📁 01 - Roteamento Estático](./01-roteamento-estatico) | Lógica de Encaminhamento & VLSM | IPv4, Subnetting Cirúrgico (VLSM/CIDR), Sumarização de Rotas, VLANs (802.1Q), Router-on-a-Stick |
+| [📁 02 - Roteamento Dinâmico](./02-roteamento-dinamico-ospf) | Convergência e Escalabilidade | OSPFv2 (Área 0), Adjacências de Vizinhança, Máscaras Wildcard, Análise de Logs de Trânsito |
+| [📁 03 - Alta Disponibilidade](./03-alta-disponibilidade-hsrp) | Tolerância a Falhas (Fault Tolerant) | Redundância FHRP/HSRP, IP Virtual Flutuante, Interface Tracking (Uplink), Preempção Automática |
+| [📁 04 - Hardening OSPF](./04-seguranca-ospf-md5) | Segurança e Integridade de Borda | Blindagem de Camada 3, Autenticação Criptografada MD5 no OSPF, Mitigação de Injeção de Rotas Maliciosas |
+| [📁 05 - Segurança Switching](./05-seguranca-switching) | Mitigação de Ataques na LAN (L2) | Port Security (Modo Sticky), DHCP Snooping (Trusted/Untrusted Ports), Proteção contra Rogue DHCP e MAC Flooding |
 
 ---
 
-## 🔬 Metodologia de Validação Técnica
-Todos os cenários são documentados seguindo rigor documental corporativo internacional. As validações contam com análises de tabelas de roteamento (ex: Equal-Cost Multi-Path - ECMP no switch core) e testes de estresse físicos para comprovar a estabilidade da engenharia proposta antes do deploy em produção.
+## 🛠️ Metodologia de Validação
+O grande diferencial técnico deste portfólio não se limita à configuração dos ativos, mas à **comprovação de funcionamento**:
+1. **Análise de Tabelas de Rotas:** Validação de convergência de múltiplos caminhos de custo idêntico (**ECMP - Equal-Cost Multi-Path**).
+2. **Simulação de Incidentes Críticos:** Aplicação de comandos de colapso (`shutdown`) em interfaces de borda para auditar o tempo de failover liso através do fluxo ICMP (perdas mínimas de pacotes).
+3. **Logs do Sistema (Syslog):** Auditoria ativa através do comando `log-adjacency-changes` e monitoramento de estados de proteção de portas (`err-disabled`).
 
 ---
-*Alinhado com objetivos de atuação em ambientes híbridos corporativos e preparação analítica para Concursos de TI (Infraestrutura).*
+
+## 🚀 Conexão com o Mercado Real
+Cada laboratório simula uma dor real de infraestrutura. As implementações de segurança e controle de porta que desenvolvi localmente evoluem no mercado corporativo para arquiteturas dinâmicas de autenticação na porta baseadas no padrão **IEEE 802.1X** (com servidores como Cisco ISE / Aruba ClearPass), garantindo que apenas dispositivos autorizados ganhem acesso à rede física e lógica da empresa.
+
+---
+
+---
+
+### 🤝 Conecte-se comigo
+
+* **LinkedIn:** [Acessar Perfil Profissional](https://linkedin.com)
