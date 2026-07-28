@@ -23,7 +23,7 @@ Abaixo estão indexados o diagrama lógico, a topologia executável e os backups
 ## 📊 Design de Engenharia e Tabela de IPs
 O cenário foi projetado para simular o backbone de uma borda corporativa espalhada in um segmento multiacesso na camada superior (WAN/Core) e conectada a uma LAN interna redundante na base.
 
-### 🌐 Rede de Trânsito Superior / Backbone (OSPF Area 0)
+### 🌐 1. Rede de Trânsito Superior / Backbone (OSPF Area 0)
 * **Sub-rede física corporativa:** `10.0.0.0/29` (Máscara: `255.255.255.248`)
 * **IP Switch_Core (Interface VLAN 10):** `10.0.0.1`
 * **IP Roteador_Principal (Interface GigabitEthernet 0/1):** `10.0.0.3`
@@ -31,7 +31,7 @@ O cenário foi projetado para simular o backbone de uma borda corporativa espalh
 
 > 💡 **Nota de Escalabilidade:** Embora uma máscara `/30` fosse suficiente para conectar apenas dois roteadores, optou-se pela máscara `/29` para reservar 4 IPs adicionais. Isso segue boas práticas de engenharia, permitindo a futura integração de dispositivos como **Firewalls de borda**, **Servidores de Monitoramento (Zabbix/PRTG)** ou um **Roteador de Contingência** neste segmento, sem a necessidade de renumeração complexa da rede.
 
-### 🖥️ Rede Nova / LAN Corporativa (HSRP Grupo 1)
+### 🖥️ 2. Rede Nova / LAN Corporativa (HSRP Grupo 1)
 * **Sub-rede física local:** `192.168.70.0/24` (Máscara: `255.255.255.0`)
 * **IP Físico - Roteador_Principal (Interface GigabitEthernet 0/0):** `192.168.70.2`
 * **IP Físico - Roteador_Backup (Interface GigabitEthernet 0/0):** `192.168.70.3`
