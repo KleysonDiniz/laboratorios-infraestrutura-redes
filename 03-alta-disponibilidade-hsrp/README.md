@@ -40,51 +40,60 @@ O cenário foi projetado para simular o backbone de uma borda corporativa espalh
 ---
 
 ## ⚙️ Configurações Aplicadas via CLI
+Abaixo estão destacados os papéis de engenharia de cada elemento da infraestrutura e seus respectivos blocos de comandos fundamentais organizados em uma matriz comparativa:
 
-### 🛠️ 1. Ativos de Borda Corporativa (Gateway Ativo vs Standby)
-O **Roteador_Principal** foi definido como o gateway prioritário (`priority 110`). Caso ele sofra uma queda de energia ou reinicie, o comando `preempt` garante que ele retome o papel de líder automaticamente assim que voltar a ficar online. O comando `standby track` foi aplicado **apenas no Principal**, pois é ele quem precisa "avisar" que está incapaz de encaminhar tráfego caso seu link de subida caia, rebaixando sua prioridade para que o Backup assuma.
+* **🛠️ 1. Roteador_Principal (Gateway Ativo):** Definido como o gateway prioritário (`priority 110`). O comando `preempt` garante que ele reivindique e retome o papel de líder automaticamente assim que voltar a ficar online após uma falha. O mecanismo de `standby track` foi aplicado **apenas nele**, pois é o ativo ativo que precisa monitorar continuamente seu próprio link de subida (Uplink) para rebaixar sua prioridade caso sofra uma queda física.
+* **🛠️ 2. Roteador_Backup (Gateway Standby):** Configurado com a prioridade padrão customizada de `105` para responder de forma cirúrgica às métricas de failover da rede local, assumindo o tráfego instantaneamente apenas se o principal falhar ou perder prioridade.
+* **🛠️ 3. Switch_Core (Distribuição Superior - Modelo 3650):** Responsável por rodar o processo OSPF no ativo de topo por meio de uma Interface VLAN lógica (SVI). Isso garante o trânsito multiacesso resiliente de Camada 3 com a borda, sem a ocorrência de erros de overlap ou desperdício de portas físicas.
 
-```cisco
-! Configuração no Roteador_Principal
-interface GigabitEthernet0/0
+Abaixo as configurações essenciais de cada ativo de infraestrutura foram organizadas em matriz lado a lado:
+
+<table width="100%" style="border: none !important; background: transparent !important; border-collapse: collapse; table-layout: fixed; margin: 0; padding: 0;">
+  <tr style="border: none !important; background: transparent !important;">
+    <!-- COLUNA 1: ROTEADOR PRINCIPAL -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🛠️ 1. Roteador_Principal (Ativo)</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
+interface GigabitEhernet0/0
  ip address 192.168.70.2 255.255.255.0
  standby 1 ip 192.168.70.1
  standby 1 priority 110
  standby 1 preempt
- standby 1 track GigabitEthernet 0/1
+ standby 1 track GigabitEhernet0/1
 !
-interface GigabitEthernet0/1
+interface GigabitEhernet0/1
  ip address 10.0.0.3 255.255.255.248
 !
 router ospf 1
  network 10.0.0.0 0.0.0.7 area 0
  network 192.168.70.0 0.0.0.255 area 0
-```
-
-### 🛠️ 2. Gateway de Redundância / Standby (Roteador_Backup)
-O **Roteador_Backup** foi configurado com a prioridade customizada de `105` para responder de forma cirúrgica às métricas de failover da rede local:
-
-```cisco
-! Configuração no Roteador_Backup
-interface GigabitEthernet0/0
+</pre>
+    </td>
+    <!-- COLUNA 2: ROTEADOR BACKUP -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🛠️ 2. Roteador_Backup (Standby)</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
+interface GigabitEhernet0/0
  ip address 192.168.70.3 255.255.255.0
  standby 1 ip 192.168.70.1
  standby 1 priority 105
  standby 1 preempt
 !
-interface GigabitEthernet0/1
+interface GigabitEhernet0/1
  ip address 10.0.0.4 255.255.255.248
 !
 router ospf 1
  network 10.0.0.0 0.0.0.7 area 0
  network 192.168.70.0 0.0.0.255 area 0
-```
-
-### 🛠️ 3. Ativo de Distribuição Superior (Switch_Core - Modelo 3650)
-Configuração do processo OSPF no ativo de topo por meio de Interface VLAN lógica para garantir o trânsito multiacesso sem a ocorrência de erros de overlap nas portas físicas:
-
-```cisco
-! Configuração no Switch_Core
+</pre>
+    </td>
+    <!-- COLUNA 3: SWITCH CORE -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🛠️ 3. Switch_Core (Modelo 3650)</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
 ip routing
 !
 interface vlan 10
@@ -92,7 +101,7 @@ interface vlan 10
  no shutdown
 exit
 !
-interface range GigabitEthernet1/0/1 - 2
+interface range GigabitEhernet1/0/1 - 2
  switchport mode access
  switchport access vlan 10
  exit
@@ -100,7 +109,13 @@ interface range GigabitEthernet1/0/1 - 2
 router ospf 1
  log-adjacency-changes
  network 10.0.0.0 0.0.0.7 area 0
-```
+</pre>
+    </td>
+  </tr>
+</table>
+
+
+
 
 ### 🧠 4. Mecanismo de Inteligência (Interface Tracking)
 O grande diferencial técnico deste laboratório está inserido na linha `standby 1 track GigabitEthernet 0/1` inserida no Roteador_Principal. Este comando instrui o HSRP a monitorar continuamente o estado físico (*Line Protocol*) da porta de Uplink (`G0/1`).
