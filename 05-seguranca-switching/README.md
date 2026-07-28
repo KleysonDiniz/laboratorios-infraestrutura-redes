@@ -17,7 +17,9 @@ O laboratório simula um cenário real de ataque onde um invasor desconecta o te
 ## 📐 Topologia e Fluxo de Segurança
 Abaixo está o mapeamento visual do comportamento da infraestrutura de rede durante a execução dos testes, evidenciando o contraste entre o tráfego permitido e o bloqueio imediato da ameaça utilizando a estratégia de cabo único na interface `Fa0/2`:
 
-![Topologia de Rede - Antes e Depois da Mitigação](img/01-topologia-fluxo.png)
+<p align="center">
+  <img src="img/01-topologia-fluxo.png" alt="Topologia de Rede - Antes e Depois da Mitigação" width="80%">
+</p>
 
 ---
 
@@ -68,14 +70,58 @@ Ao conectar o terminal `PC - LEGITIMO` na interface `FastEthernet0/2`, o Switch 
 *   **Comandos de Auditoria:** `show port-security interface FastEthernet0/2` e `show interface FastEthernet0/2`.
 *   **Status Obtido:** Porta operacional em estado saudável (`Secure-up`), tráfego de dados totalmente permitido e link ativo (`connected`).
 
-![Estado Saudável - Usuário Autorizado](img/02-estado-saudavel-legitimo.png)
+### Estado Saudável - Usuário Autorizado:
+
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/02-estado-saudavel-legitimo.png" alt="Estado Saudável - Usuário Autorizado" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/02-estado-saudavel-legitimo.png" alt="Zoom Estado Saudável - Usuário Autorizado" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ### Fase 2: Flagrante de Ataque e Bloqueio de Intruso (`err-disabled`)
 Para simular a ameaça, o cabo da interface `FastEthernet0/2` foi desconectado do usuário legítimo e inserido no terminal `PC - INVASOR`. No momento em que o intruso tentou gerar o primeiro frame de dados na rede forçando um pedido de IP via `ipconfig /renew`, os mecanismos de defesa agiram instantaneamente:
 *   **Mecanismo de Defesa:** O Switch identificou que o endereço MAC de origem não correspondia ao MAC autorizado no histórico `Sticky`.
 *   **Status Obtido:** A política de violação executou o congelamento imediato da porta por hardware. O status foi alterado para **`Secure-shutdown`** e a interface entrou em modo **`(err-disabled)`**, cortando totalmente a conectividade do invasor e gerando alertas automáticos nos logs do sistema (Syslog).
 
-![Bloqueio do Invasor - Err-Disabled](img/03-bloqueio-invasor-errdisabled.png)
+### Bloqueio do Invasor - Err-Disabled:
+
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/03-bloqueio-invasor-errdisabled.png" alt="Bloqueio do Invasor - Err-Disabled" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-bloqueio-invasor-errdisabled.png" alt="Zoom Bloqueio do Invasor - Err-Disabled" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ---
 
