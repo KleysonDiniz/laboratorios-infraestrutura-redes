@@ -8,7 +8,7 @@ O cenário simula uma situação de ataque onde um invasor desconecta o terminal
 
 ---
 
-## 🗺️ 1. Topologia da Rede e Fluxo de Segurança
+## 🗺️ Topologia da Rede e Fluxo de Segurança
 
 Abaixo está o mapeamento visual do comportamento da infraestrutura de rede durante a execução dos testes, evidenciando o contraste entre o tráfego permitido e o bloqueio imediato da ameaça utilizando a estratégia de cabo único na interface **`Fa0/2`**:
 
@@ -16,7 +16,7 @@ Abaixo está o mapeamento visual do comportamento da infraestrutura de rede dura
   <img src="img/01-topologia-fluxo.png" alt="Topologia de Rede - Antes e Depois da Mitigação" width="70%">
 </p>
 
-## 📁 2. Arquivos do Laboratório
+## 📁 Arquivos do Laboratório
 
 Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
 
@@ -25,8 +25,6 @@ Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as conf
 * 📄 **CLI - Switch de Acesso (SW-ACESSO-01):** [SW-ACESSO-01.cfg](scr/SW-ACESSO-01.cfg)
 
 ---
-
-## 🚀 Principais Comandos de Configuração
 
 ## ⚙️ Configurações Aplicadas via CLI
 
@@ -149,7 +147,7 @@ Para simular a ameaça, o cabo da interface `FastEthernet0/2` foi desconectado d
 
 ---
 
-### 🔄 Procedimento de Recuperação e Normalização
+## 🔄 Procedimento de Recuperação e Normalização
 
 Em um cenário real de engenharia de redes, após a remoção física da ameaça e contenção do incidente pela equipe de segurança, a porta afetada precisa ser reativada administrativamente através da CLI do Switch seguindo a ordem correta:
 
@@ -163,4 +161,23 @@ interface FastEthernet0/2
 > Embora o *Port Security* estático (modo *Sticky*) seja altamente eficiente e amplamente empregado na atualidade para proteger ativos fixos críticos — tais como **servidores em data centers, câmeras de monitoramento (CFTV) e terminais de autoatendimento (caixas eletrônicos)** —, o mercado corporativo de grande porte adota uma abordagem dinâmica para portas de usuários comuns.  
 > 
 > Para evitar os alarmes falsos gerados pela alta rotatividade de notebooks nas mesas de trabalho, a indústria moderna utiliza o padrão **IEEE 802.1X (Network Access Control)** integrado a servidores centrais de autenticação (como *Cisco ISE* ou *Aruba ClearPass*). Nesse modelo avançado, a porta do switch nasce bloqueada por padrão e o dispositivo só obtém acesso à rede corporativa após validar com sucesso um certificado digital ou credenciais corporativas válidas, mitigando o ataque na origem sem a necessidade de intervenção manual do administrador.
+
+---
+
+## 🏁 Conclusão e Encerramento da Trilha
+
+A implementação bem-sucedida do DHCP Snooping e do Port Security consolidou a segurança de Camada 2 nesta LAN corporativa, neutralizando vetores de ataque internos críticos e garantindo a integridade dos serviços de rede. 
+
+Com este projeto, encerro com sucesso a trilha prática de **Infraestrutura e Hardening de Redes Cisco** do portfólio.
+
+---
+
+### 🚀 Próximos Passos: Nova Trilha com MikroTik RouterOS!
+
+Agora que dominamos os conceitos de roteamento, alta disponibilidade e segurança aplicados ao ecossistema Cisco, o próximo passo na minha evolução técnica como Engenheiro de Redes será explorar o ecossistema **MikroTik**. 
+
+Na próxima trilha de laboratórios, abordarei a implementação prática de roteamento avançado, gerência de tráfego, VPNs e firewalls utilizando o **MikroTik RouterOS**. Fique atento às atualizações do meu perfil para acompanhar o lançamento do novo repositório!
+
+👉 **[Voltar ao Repositório Principal (HUB de Redes)](https://github.com/KleysonDiniz/laboratorios-infraestrutura-redes)**
+
 
