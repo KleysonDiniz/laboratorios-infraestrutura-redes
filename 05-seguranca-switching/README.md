@@ -26,45 +26,42 @@ Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as conf
 
 ---
 
-
----
-
 ## 🚀 Principais Comandos de Configuração
 
 ### 1. Configuração do Servidor DHCP Legítimo (`GW-MATRIZ`)
 Criação do pool de endereçamento IPv4 corporativo para distribuição dinâmica de parâmetros de rede:
 ```gns3
-GW-MATRIZ(config)# interface GigabitEthernet0/0/0
-GW-MATRIZ(config-if)# ip address 192.168.50.1 255.255.255.0
-GW-MATRIZ(config-if)# no shutdown
-GW-MATRIZ(config-if)# exit
-GW-MATRIZ(config)# ip dhcp pool LAN_KLEYSON
-GW-MATRIZ(dhcp-config)# network 192.168.50.0 255.255.255.0
-GW-MATRIZ(dhcp-config)# default-router 192.168.50.1
-GW-MATRIZ(dhcp-config)# dns-server 8.8.8.8
+interface GigabitEthernet0/0/0
+ ip address 192.168.50.1 255.255.255.0
+ no shutdown
+exit
+ip dhcp pool LAN_KLEYSON
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.1
+ dns-server 8.8.8.8
 ```
 
 ### 2. Blindagem contra Servidores Rogue (`DHCP Snooping`)
 Ativação global do monitoramento de pacotes DHCP e definição de portas confiáveis (Trusted) para evitar ataques de *Man-in-the-Middle*. A remoção da opção 82 foi aplicada para garantir a compatibilidade de pacotes no ambiente de simulação:
 ```gns3
-SW-ACESSO-01(config)# ip dhcp snooping
-SW-ACESSO-01(config)# ip dhcp snooping vlan 1
-SW-ACESSO-01(config)# no ip dhcp snooping information option
+ip dhcp snooping
+ip dhcp snooping vlan 1
+no ip dhcp snooping information option
 
 ! Definindo a interface conectada ao Roteador DHCP Real como confiável
-SW-ACESSO-01(config)# interface FastEthernet0/1
-SW-ACESSO-01(config-if)# ip dhcp snooping trust
+interface FastEthernet0/1
+ip dhcp snooping trust
 ```
 
 ### 3. Proteção de Portas de Acesso (`Port Security`)
 Configuração restrita na interface do usuário final para memorizar dinamicamente o primeiro endereço MAC conectado (Sticky) e aplicar o desligamento imediato (Shutdown) por hardware em caso de divergência:
 ```gns3
-SW-ACESSO-01(config)# interface FastEthernet0/2
-SW-ACESSO-01(config-if)# switchport mode access
-SW-ACESSO-01(config-if)# switchport port-security
-SW-ACESSO-01(config-if)# switchport port-security maximum 1
-SW-ACESSO-01(config-if)# switchport port-security mac-address sticky
-SW-ACESSO-01(config-if)# switchport port-security violation shutdown
+interface FastEthernet0/2
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation shutdown
 ```
 
 ---
