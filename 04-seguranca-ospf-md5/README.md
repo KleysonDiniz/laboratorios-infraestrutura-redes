@@ -5,7 +5,7 @@ Este projeto demonstra a vulnerabilidade do protocolo OSPF v2 em sua configuraç
 
 ---
 
-## 📐 1. Topologia da Rede e Endereçamento IP
+## 📐 Topologia da Rede e Endereçamento IP
 
 Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WAN) e da rede local protegida (LAN):
 
@@ -16,7 +16,7 @@ Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WA
 *   **Rede Interna LAN:** `192.168.44.0/24` (Gateway Matriz: `.1` | PC_Matriz: `.10`)
 
 ---
-## 📁 2. Arquivos do Laboratório
+## 📁 Arquivos do Laboratório
 
 Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
 
@@ -27,11 +27,11 @@ Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as conf
 
 ---
 
-## 🐱‍👤 3. O Cenário de Vulnerabilidade (Antes do Hardening)
+## 🐱‍👤 O Cenário de Vulnerabilidade (Antes do Hardening)
 
 Sem segurança ativa, o protocolo OSPF aceita adjacências de qualquer dispositivo que envie pacotes do tipo *Hello* correspondentes. O atacante se infiltra na rede, estabelece vizinhança e rouba a tabela de rotas internas da empresa.
 
-### Evidência do Ataque no Roteador_Invasor:
+### 1. Evidência do Ataque no Roteador_Invasor:
 Abaixo, comprova-se o invasor com vizinhança em estado `FULL` e a rota interna `192.168.44.0/24` injetada em sua tabela lógica:
 
 <!-- Imagem reduzida centralizada -->
@@ -56,7 +56,7 @@ Abaixo, comprova-se o invasor com vizinhança em estado `FULL` e a rota interna 
   </tr>
 </table>
 
-### Visão da Infraestrutura Corporativa Comprometida:
+### 2. Visão da Infraestrutura Corporativa Comprometida:
 Tanto a Matriz quanto a Filial aceitam o vizinho malicioso (`66.66.66.66`) sem nenhuma restrição:
 
 <!-- Imagem reduzida centralizada -->
@@ -84,7 +84,7 @@ Tanto a Matriz quanto a Filial aceitam o vizinho malicioso (`66.66.66.66`) sem n
 
 ---
 
-## 🛡️ 4. Implementação do Hardening (Criptografia MD5)
+## 🛡️ Implementação do Hardening (Criptografia MD5)
 
 Para mitigar a ameaça, aplicamos a autenticação por Message Digest (MD5) diretamente na interface de trânsito dos roteadores legítimos (Roteador_Matriz e Roteador_Filial). 
 
@@ -123,7 +123,7 @@ Assim que o comando é inserido, o roteador exige pacotes assinados digitalmente
 
 ---
 
-## 🏆 5. Validação Final do Ambiente Seguro
+## 🏆 Validação Final do Ambiente Seguro
 
 ### 1. Reestabelecimento do Link Confiável
 Após padronizar a mesma chave criptográfica na Filial, os roteadores legítimos (Roteador_Matriz e Roteador_Filial) restabelecem a adjacência OSPF em modo seguro (estado FULL). Como evidenciado abaixo, o Roteador_Invasor foi completamente ejetado e não aparece mais na tabela de vizinhos, bloqueado permanentemente por não possuir a senha: 
