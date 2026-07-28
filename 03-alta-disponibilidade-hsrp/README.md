@@ -4,8 +4,11 @@ Este projeto demonstra a implementação de uma arquitetura de infraestrutura de
 
 ---
 
-## 📐 Topologia da Rede
-![Topologia do Projeto de Alta Disponibilidade](img/topologia-hsrp.png)
+## 🌐 Topologia da Rede
+
+<p align="center">
+  <img src="img/topologia-hsrp.png" alt="Topologia do Projeto de Alta Disponibilidade" width="60%">
+</p>
 
 ### 📁 Arquivos do Projeto
 
@@ -121,29 +124,36 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 
 ### 🛑 1. Cenário Inicial Estável (HSRP Ativo e Standby Operando)
 <p align="center">
-  <img src="img/01-cenario-estavel.png" alt="Estado Inicial Estável do HSRP" width="85%">
+  <img src="img/01-cenario-estavel.png" alt="Estado Inicial Estável do HSRP" width="50%">
 </p>
+
+<p align="center">
+  <a href="img/01-cenario-estavel.png" target="_blank">
+    <img src="img/01-cenario-estavel.png" alt="Estado Inicial Estável do HSRP" width="50%">
+  </a>
+</p>
+
 
 ### ⚡ 2. Linha do Tempo da Falha e Transição de Fluxo (Failover no Prompt do PC0)
 <p align="center">
-  <img src="img/02-linha-tempo-failover.png" alt="Evidência do Fluxo ICMP com perda mínima de 1 pacote" width="85%">
+  <img src="img/02-linha-tempo-failover.png" alt="Evidência do Fluxo ICMP com perda mínima de 1 pacote" width="50%">
 </p>
 
 ### 📉 3. Mecanismo de Failover (Inversão de Papéis com Prioridade 100)
 <p align="center">
-  <img src="img/03-inversao-papeis.png" alt="Logs de Interface Down e Redução de Prioridade para 100" width="85%">
+  <img src="img/03-inversao-papeis.png" alt="Logs de Interface Down e Redução de Prioridade para 100" width="50%">
 </p>
 
 ### 🔄 4. Restabelecimento do Link e Preempção Automática (Retorno a 110)
 <p align="center">
-  <img src="img/04-retorno-preempcao.png" alt="Evidência do Retorno à Normalidade via Comando Preempt" width="85%">
+  <img src="img/04-retorno-preempcao.png" alt="Evidência do Retorno à Normalidade via Comando Preempt" width="50%">
 </p>
 
 ### 🧠 5. Tabela de Rotas no Core (Equal-Cost Multi-Path - OSPF Ativo)
 Abaixo está a validação da tabela de roteamento no `Switch_Core`. A presença da letra **`O`** comprova que o roteamento dinâmico OSPF aprendeu a rede interna de forma automatizada através de dois caminhos de custo idêntico (redundância de Camada 3 ativa):
 
 <p align="center">
-  <img src="img/05-tabela-rotas-core.png" alt="Tabela de Rotas OSPF no Switch Core" width="85%">
+  <img src="img/05-tabela-rotas-core.png" alt="Tabela de Rotas OSPF no Switch Core" width="50%">
 </p>
 
 ---
