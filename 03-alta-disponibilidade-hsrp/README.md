@@ -134,9 +134,6 @@ O laboratório de Alta Disponibilidade foi validado simulando um cenário real d
 
 ---
 
-## 📸 Evidências Técnicas do Laboratório
-Para conferência analítica da integridade do projeto, abaixo estão centralizadas as telas coletadas durante as fases do teste de resiliência:
-
 ### 🛑 1. Cenário Inicial Estável (HSRP Ativo e Standby Operando)
 
 <!-- Imagem reduzida centralizada -->
@@ -144,13 +141,13 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
   <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="40%">
 </p>
 
-<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
 <table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
   <tr style="border: none !important; background: transparent !important;">
     <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
       <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
-          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
         </summary>
         <br><br>
         <p align="center">
@@ -161,7 +158,6 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
   </tr>
 </table>
 
-
 ### ⚡ 2. Linha do Tempo da Falha e Transição de Fluxo (Failover no Prompt do PC0)
 
 <!-- Imagem reduzida centralizada -->
@@ -169,13 +165,13 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
   <img src="img/02-linha-tempo-failover.png" alt="Miniatura do Failover Prompt" width="70%">
 </p>
 
-<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
 <table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
   <tr style="border: none !important; background: transparent !important;">
     <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
       <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
-          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
         </summary>
         <br><br>
         <p align="center">
@@ -193,13 +189,13 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
   <img src="img/03-inversao-papeis.png" alt="Miniatura da Inversão de Papéis" width="40%">
 </p>
 
-<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
 <table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
   <tr style="border: none !important; background: transparent !important;">
     <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
       <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
-          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
         </summary>
         <br><br>
         <p align="center">
@@ -210,19 +206,20 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
   </tr>
 </table>
 
-
 ### 🔄 4. Restabelecimento do Link e Preempção Automática (Retorno a 110)
+
+<!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/04-retorno-preempcao.png" alt="Evidência do Retorno à Normalidade via Comando Preempt" width="40%">
+  <img src="img/04-retorno-preempcao.png" alt="Miniatura do Retorno por Preempção" width="40%">
 </p>
 
-<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
 <table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
   <tr style="border: none !important; background: transparent !important;">
     <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
       <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
-          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
         </summary>
         <br><br>
         <p align="center">
@@ -233,8 +230,8 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
   </tr>
 </table>
 
-
 ### 🧠 5. Tabela de Rotas no Core (Equal-Cost Multi-Path - OSPF Ativo)
+
 Abaixo está a validação da tabela de roteamento no `Switch_Core`. A presença da letra **`O`** comprova que o roteamento dinâmico OSPF aprendeu a rede interna de forma automatizada através de dois caminhos de custo idêntico (redundância de Camada 3 ativa):
 
 <!-- Imagem reduzida centralizada -->
@@ -242,13 +239,13 @@ Abaixo está a validação da tabela de roteamento no `Switch_Core`. A presença
   <img src="img/05-tabela-rotas-core.png" alt="Miniatura da Tabela de Rotas Core" width="40%">
 </p>
 
-<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
 <table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
   <tr style="border: none !important; background: transparent !important;">
     <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
       <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
-          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
         </summary>
         <br><br>
         <p align="center">
@@ -258,7 +255,6 @@ Abaixo está a validação da tabela de roteamento no `Switch_Core`. A presença
     </td>
   </tr>
 </table>
-
 
 ---
 
