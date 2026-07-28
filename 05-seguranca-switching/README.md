@@ -1,25 +1,31 @@
-# Projeto 05: Segurança de Ativos em Camada 2 (Port Security & DHCP Snooping)
+# Laboratório 05: Segurança de Ativos em Camada 2 (Port Security & DHCP Snooping)
 
-## 📌 Descrição do Projeto
-Este projeto apresenta a implementação prática de mecanismos de segurança de Camada 2 (Enlace) em switches Cisco corporativos utilizando o simulador Cisco Packet Tracer. O objetivo principal é blindar a infraestrutura de rede local contra ameaças de intrusão física e engenharia social, mitigando vetores críticos como a clonagem ou estouro de endereços MAC (MAC Spoofing/Flooding) e a introdução de servidores DHCP maliciosos (Rogue DHCP) na LAN corporativa.
+## 📌 Cenário e Objetivo do Laboratório
 
-O laboratório simula um cenário real de ataque onde um invasor desconecta o terminal de um funcionário homologado para tentar ganhar acesso à rede através da mesma tomada física da parede, acionando os gatilhos automatizados de defesa do Switch.
+Este laboratório apresenta a implementação prática de mecanismos de segurança de Camada 2 (Enlace) em switches Cisco corporativos. O objetivo principal é blindar a infraestrutura de rede local contra ameaças de intrusão e engenharia social através dos recursos de **Port Security (Sticky Mode)** e **DHCP Snooping (Trusted/Untrusted Ports)**, mitigando vetores críticos como a clonagem ou estouro de endereços MAC (MAC Spoofing/Flooding) e a introdução de servidores DHCP maliciosos (Rogue DHCP) na LAN corporativa.
 
----
-
-## 🛠️ Tecnologias e Ferramentas Utilizadas
-*   **Simulador de Rede:** Cisco Packet Tracer
-*   **Ativos de Rede:** Cisco Catalyst Switch 2960 (`SW-ACESSO-01`) / Cisco Router ISR 4331 (`GW-MATRIZ`)
-*   **Protocolos e Recursos:** Port Security (Sticky Mode), DHCP Snooping (Trusted/Untrusted Ports), IPv4 Networking, Syslog Monitoring.
+O cenário simula uma situação de ataque onde um invasor desconecta o terminal de um funcionário homologado para tentar ganhar acesso à rede através da mesma tomada física da parede, acionando os gatilhos automatizados de defesa do Switch.
 
 ---
 
-## 📐 Topologia e Fluxo de Segurança
-Abaixo está o mapeamento visual do comportamento da infraestrutura de rede durante a execução dos testes, evidenciando o contraste entre o tráfego permitido e o bloqueio imediato da ameaça utilizando a estratégia de cabo único na interface `Fa0/2`:
+## 🗺️ 1. Topologia da Rede e Fluxo de Segurança
+
+Abaixo está o mapeamento visual do comportamento da infraestrutura de rede durante a execução dos testes, evidenciando o contraste entre o tráfego permitido e o bloqueio imediato da ameaça utilizando a estratégia de cabo único na interface **`Fa0/2`**:
 
 <p align="center">
-  <img src="img/01-topologia-fluxo.png" alt="Topologia de Rede - Antes e Depois da Mitigação" width="80%">
+  <img src="img/01-topologia-fluxo.png" alt="Topologia de Rede - Antes e Depois da Mitigação" width="70%">
 </p>
+
+## 📁 2. Arquivos do Laboratório
+
+Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
+
+* 💻 **Arquivo do Packet Tracer:** [seguranca-switching.pkt](scr/seguranca-switching.pkt)
+* 📄 **CLI - Switch de Acesso (SW-ACESSO-01):** [SW-ACESSO-01.cfg](scr/SW-ACESSO-01.cfg)
+* 📄 **CLI - Gateway Matriz (GW-MATRIZ):** [GW-MATRIZ.cfg](scr/GW-MATRIZ.cfg)
+
+---
+
 
 ---
 
