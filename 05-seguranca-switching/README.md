@@ -22,7 +22,7 @@ Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as conf
 
 * 💻 **Arquivo do Packet Tracer:** [seguranca-switching.pkt](scr/Seguranca-switching.pkt)
 * 📄 **CLI - Switch de Acesso (SW-ACESSO-01):** [SW-ACESSO-01.cfg](scr/SW-ACESSO-01.cfg)
-* 📄 **CLI - Gateway Matriz (GW-MATRIZ):** [GW-MATRIZ.cfg](scr/GW-MATRIZ.cfg)
+* 📄 **CLI - Roteador Gateway Matriz (GW-MATRIZ):** [GW-MATRIZ.cfg](scr/GW-MATRIZ.cfg)
 
 ---
 
