@@ -114,8 +114,7 @@ router ospf 1
   </tr>
 </table>
 
-
-
+---
 
 ### 🧠 Mecanismo de Inteligência (Interface Tracking)
 O grande diferencial técnico deste laboratório está inserido na linha `standby 1 track GigabitEthernet 0/1` inserida no Roteador_Principal. Este comando instrui o HSRP a monitorar continuamente o estado físico (*Line Protocol*) da porta de Uplink (`G0/1`).
