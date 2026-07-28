@@ -17,7 +17,7 @@ Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WA
 
 ---
 
-## 🥷 2. O Cenário de Vulnerabilidade (Antes do Hardening)
+## 🐱‍👤 2. O Cenário de Vulnerabilidade (Antes do Hardening)
 
 Sem segurança ativa, o protocolo OSPF aceita adjacências de qualquer dispositivo que envie pacotes do tipo *Hello* correspondentes. O atacante se infiltra na rede, estabelece vizinhança e rouba a tabela de rotas internas da empresa.
 
