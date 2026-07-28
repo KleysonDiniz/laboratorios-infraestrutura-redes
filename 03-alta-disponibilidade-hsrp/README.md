@@ -126,7 +126,7 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 
 <!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="70%">
+  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="40%">
 </p>
 
 <!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
@@ -148,9 +148,29 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 
 
 ### ⚡ 2. Linha do Tempo da Falha e Transição de Fluxo (Failover no Prompt do PC0)
+
+<!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/02-linha-tempo-failover.png" alt="Evidência do Fluxo ICMP com perda mínima de 1 pacote" width="100%">
+  <img src="img/02-linha-tempo-failover.png" alt="Miniatura do Failover Prompt" width="70%">
 </p>
+
+<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
+          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/02-linha-tempo-failover.png" alt="Zoom Evidência do Fluxo ICMP" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ### 📉 3. Mecanismo de Failover (Inversão de Papéis com Prioridade 100)
 
@@ -179,7 +199,7 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 
 ### 🔄 4. Restabelecimento do Link e Preempção Automática (Retorno a 110)
 <p align="center">
-  <img src="img/04-retorno-preempcao.png" alt="Evidência do Retorno à Normalidade via Comando Preempt" width="50%">
+  <img src="img/04-retorno-preempcao.png" alt="Evidência do Retorno à Normalidade via Comando Preempt" width="40%">
 </p>
 
 <!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
