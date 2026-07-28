@@ -226,7 +226,7 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
         </summary>
         <br><br>
         <p align="center">
-          <img src="img/03-inversao-papeis.png" alt="Zoom Estado Inicial Estável do HSRP" width="100%">
+          <img src="img/04-retorno-preempcao.png" alt="Zoom Retorno à Normalidade" width="100%">
         </p>
       </details>
     </td>
