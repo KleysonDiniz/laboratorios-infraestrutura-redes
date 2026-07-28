@@ -124,19 +124,28 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 
 ### 🛑 1. Cenário Inicial Estável (HSRP Ativo e Standby Operando)
 
-<!-- Imagem reduzida que serve como miniatura no texto -->
+<!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="40%">
+  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="50%">
 </p>
 
-<!-- Bloco retrátil que faz a função de Zoom na mesma página -->
-<details>
-  <summary style="cursor: pointer; color: #0366d6; font-weight: bold;">🔍 Clique aqui para aplicar ZOOM na imagem acima</summary>
-  <br>
-  <p align="center">
-    <img src="img/01-cenario-estavel.png" alt="Zoom Estado Inicial Estável do HSRP" width="100%">
-  </p>
-</details>
+<!-- Tabela invisível centralizada para forçar o bloco retrátil a ir para o meio -->
+<table align="center" style="border: none; background: transparent;">
+  <tr style="border: none; background: transparent;">
+    <td style="border: none; background: transparent; text-align: center;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; color: #0366d6; font-weight: bold; list-style: none; display: inline;">
+          🔍 Clique aqui para aplicar ZOOM na imagem acima
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/01-cenario-estavel.png" alt="Zoom Estado Inicial Estável do HSRP" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 
 
