@@ -7,7 +7,7 @@ Este projeto demonstra a implementação de uma arquitetura de infraestrutura de
 ## 🌐 Topologia da Rede
 
 <p align="center">
-  <img src="img/topologia-alta-disponibilidade-hsrp.png" alt="Topologia do Projeto de Alta Disponibilidade" width="60%">
+  <img src="img/topologia-alta-disponibilidade-hsrp.png" alt="Topologia do Projeto de Alta Disponibilidade" width="40%">
 </p>
 
 ### 📁 Arquivos do Projeto
@@ -170,31 +170,6 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
     </td>
   </tr>
 </table>
-
-### ⚡ TESTE.2. Linha do Tempo da Falha e Transição de Fluxo (Failover no Prompt do PC0)
-
-<!-- Imagem reduzida centralizada -->
-<p align="center">
-  <img src="img/02-linha-tempo-failover - Copia.png" alt="Miniatura do Failover Prompt" width="70%">
-</p>
-
-<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
-<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
-  <tr style="border: none !important; background: transparent !important;">
-    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
-      <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
-          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
-        </summary>
-        <br><br>
-        <p align="center">
-          <img src="img/02-linha-tempo-failover - Copia.png" alt="Zoom Evidência do Fluxo ICMP" width="100%">
-        </p>
-      </details>
-    </td>
-  </tr>
-</table>
-
 
 ### 📉 3. Mecanismo de Failover (Inversão de Papéis com Prioridade 100)
 
