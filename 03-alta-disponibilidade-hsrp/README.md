@@ -7,7 +7,7 @@ Este projeto demonstra a implementação de uma arquitetura de infraestrutura de
 ## 🌐 Topologia da Rede
 
 <p align="center">
-  <img src="img/topologia-alta-disponibilidade-hsrp.png" alt="Topologia do Projeto de Alta Disponibilidade" width="40%">
+  <img src="img/topologia-alta-disponibilidade-hsrp.png" alt="Topologia do Projeto de Alta Disponibilidade" width="60%">
 </p>
 
 ### 📁 Arquivos do Projeto
