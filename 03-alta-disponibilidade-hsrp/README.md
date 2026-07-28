@@ -126,16 +126,16 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 
 <!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="50%">
+  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="70%">
 </p>
 
-<!-- Tabela invisível centralizada para forçar o bloco retrátil a ir para o meio -->
-<table align="center" style="border: none; background: transparent;">
-  <tr style="border: none; background: transparent;">
-    <td style="border: none; background: transparent; text-align: center;">
+<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
       <details style="display: inline-block;">
-        <summary style="cursor: pointer; color: #0366d6; font-weight: bold; list-style: none; display: inline;">
-          🔍 Clique aqui para aplicar ZOOM na imagem acima
+        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
+          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
         </summary>
         <br><br>
         <p align="center">
@@ -147,29 +147,84 @@ Para conferência analítica da integridade do projeto, abaixo estão centraliza
 </table>
 
 
-
-
 ### ⚡ 2. Linha do Tempo da Falha e Transição de Fluxo (Failover no Prompt do PC0)
 <p align="center">
-  <img src="img/02-linha-tempo-failover.png" alt="Evidência do Fluxo ICMP com perda mínima de 1 pacote" width="50%">
+  <img src="img/02-linha-tempo-failover.png" alt="Evidência do Fluxo ICMP com perda mínima de 1 pacote" width="100%">
 </p>
 
 ### 📉 3. Mecanismo de Failover (Inversão de Papéis com Prioridade 100)
+
+<!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/03-inversao-papeis.png" alt="Logs de Interface Down e Redução de Prioridade para 100" width="50%">
+  <img src="img/03-inversao-papeis.png" alt="Miniatura da Inversão de Papéis" width="40%">
 </p>
+
+<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
+          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-inversao-papeis.png" alt="Zoom Logs de Interface Down" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ### 🔄 4. Restabelecimento do Link e Preempção Automática (Retorno a 110)
 <p align="center">
   <img src="img/04-retorno-preempcao.png" alt="Evidência do Retorno à Normalidade via Comando Preempt" width="50%">
 </p>
 
+<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
+          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-inversao-papeis.png" alt="Zoom Estado Inicial Estável do HSRP" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
+
 ### 🧠 5. Tabela de Rotas no Core (Equal-Cost Multi-Path - OSPF Ativo)
 Abaixo está a validação da tabela de roteamento no `Switch_Core`. A presença da letra **`O`** comprova que o roteamento dinâmico OSPF aprendeu a rede interna de forma automatizada através de dois caminhos de custo idêntico (redundância de Camada 3 ativa):
 
+<!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/05-tabela-rotas-core.png" alt="Tabela de Rotas OSPF no Switch Core" width="50%">
+  <img src="img/05-tabela-rotas-core.png" alt="Miniatura da Tabela de Rotas Core" width="40%">
 </p>
+
+<!-- Tabela invisível que garante centralização, com texto reduzido e sem bordas -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; color: #0366d6; list-style: none; display: inline;">
+          <sub>🔍 Clique aqui para aplicar ZOOM na imagem acima</sub>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/05-tabela-rotas-core.png" alt="Zoom Tabela de Rotas OSPF" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ---
 
