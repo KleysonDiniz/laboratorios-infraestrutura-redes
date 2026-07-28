@@ -16,8 +16,17 @@ Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WA
 *   **Rede Interna LAN:** `192.168.44.0/24` (Gateway Matriz: `.1` | PC_Matriz: `.10`)
 
 ---
+## 📁 2. Arquivos do Laboratório
 
-## 🐱‍👤 2. O Cenário de Vulnerabilidade (Antes do Hardening)
+Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
+
+* 💻 **Arquivo do Packet Tracer:** [laboratorio-ospf-seguro.pkt](src/laboratorio-ospf-seguro.pkt)
+* 📄 **CLI - Roteador Matriz:** [Roteador_Matriz.cfg](src/Roteador_Matriz.cfg)
+* 📄 **CLI - Roteador Filial:** [Roteador_Filial.cfg](src/Roteador_Filial.cfg)
+* 📄 **CLI - Roteador Invasor:** [Roteador_Invasor.cfg](src/Roteador_Invasor.cfg)
+---
+
+## 🐱‍👤 3. O Cenário de Vulnerabilidade (Antes do Hardening)
 
 Sem segurança ativa, o protocolo OSPF aceita adjacências de qualquer dispositivo que envie pacotes do tipo *Hello* correspondentes. O atacante se infiltra na rede, estabelece vizinhança e rouba a tabela de rotas internas da empresa.
 
@@ -74,7 +83,7 @@ Tanto a Matriz quanto a Filial aceitam o vizinho malicioso (`66.66.66.66`) sem n
 
 ---
 
-## 🛡️ 3. Implementação do Hardening (Criptografia MD5)
+## 🛡️ 4. Implementação do Hardening (Criptografia MD5)
 
 Para mitigar a ameaça, aplicamos a autenticação por Message Digest (MD5) diretamente na interface de trânsito dos roteadores legítimos (Roteador_Matriz e Roteador_Filial). 
 
@@ -113,7 +122,7 @@ Assim que o comando é inserido, o roteador exige pacotes assinados digitalmente
 
 ---
 
-## 🏆 4. Validação Final do Ambiente Seguro
+## 🏆 5. Validação Final do Ambiente Seguro
 
 ### 1. Reestabelecimento do Link Confiável
 Após padronizar a mesma chave criptográfica na Filial, os roteadores legítimos (Roteador_Matriz e Roteador_Filial) restabelecem a adjacência OSPF em modo seguro (estado FULL). Como evidenciado abaixo, o Roteador_Invasor foi completamente ejetado e não aparece mais na tabela de vizinhos, bloqueado permanentemente por não possuir a senha: 
