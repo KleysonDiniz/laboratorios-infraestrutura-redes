@@ -123,15 +123,21 @@ O laboratório de Alta Disponibilidade foi validado simulando um cenário real d
 Para conferência analítica da integridade do projeto, abaixo estão centralizadas as telas coletadas durante as fases do teste de resiliência:
 
 ### 🛑 1. Cenário Inicial Estável (HSRP Ativo e Standby Operando)
+
+<!-- Imagem reduzida que serve como miniatura no texto -->
 <p align="center">
-  <img src="img/01-cenario-estavel.png" alt="Estado Inicial Estável do HSRP" width="50%">
+  <img src="img/01-cenario-estavel.png" alt="Miniatura do Estado Inicial" width="40%">
 </p>
 
-<p align="center">
-  <a href="img/01-cenario-estavel.png" target="_blank">
-    <img src="img/01-cenario-estavel.png" alt="Estado Inicial Estável do HSRP" width="50%">
-  </a>
-</p>
+<!-- Bloco retrátil que faz a função de Zoom na mesma página -->
+<details>
+  <summary style="cursor: pointer; color: #0366d6; font-weight: bold;">🔍 Clique aqui para aplicar ZOOM na imagem acima</summary>
+  <br>
+  <p align="center">
+    <img src="img/01-cenario-estavel.png" alt="Zoom Estado Inicial Estável do HSRP" width="100%">
+  </p>
+</details>
+
 
 
 ### ⚡ 2. Linha do Tempo da Falha e Transição de Fluxo (Failover no Prompt do PC0)
