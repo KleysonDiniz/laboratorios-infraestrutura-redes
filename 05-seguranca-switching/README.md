@@ -28,9 +28,23 @@ Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as conf
 
 ## 🚀 Principais Comandos de Configuração
 
-### 1. Configuração do Servidor DHCP Legítimo (`GW-MATRIZ`)
-Criação do pool de endereçamento IPv4 corporativo para distribuição dinâmica de parâmetros de rede:
-```gns3
+## ⚙️ Configurações Aplicadas via CLI
+
+Abaixo estão destacados os papéis de engenharia de cada elemento da infraestrutura e seus respectivos blocos de comandos fundamentais organizados em uma matriz comparativa:
+
+* 🛡️ **1. Servidor DHCP Legítimo (GW-MATRIZ):** Criação do pool de endereçamento IPv4 corporativo para distribuição dinâmica de parâmetros de rede.
+* 🛡️ **2. Blindagem contra Servidores Rogue (DHCP Snooping):** Ativação global do monitoramento de pacotes DHCP e definição de portas confiáveis (Trusted) para evitar ataques de *Man-in-the-Middle*, com a remoção da opção 82 para compatibilidade de simulação.
+* 🛡️ **3. Proteção de Portas de Acesso (Port Security):** Configuração restrita na interface do usuário final para memorizar dinamicamente o primeiro endereço MAC conectado (Sticky) e aplicar o desligamento imediato (Shutdown) por hardware em caso de divergência.
+
+Segue as configurações essenciais de cada ativo de infraestrutura foram organizadas em matriz lado a lado:
+
+<table width="100%" style="border: none !important; background: transparent !important; border-collapse: collapse; table-layout: fixed; margin: 0; padding: 0;">
+  <tr style="border: none !important; background: transparent !important;">
+    <!-- COLUNA 1: SERVIDOR DHCP LEGÍTIMO -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🚀 1. Servidor DHCP Legítimo</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
 interface GigabitEthernet0/0/0
  ip address 192.168.50.1 255.255.255.0
  no shutdown
@@ -39,30 +53,37 @@ ip dhcp pool LAN_KLEYSON
  network 192.168.50.0 255.255.255.0
  default-router 192.168.50.1
  dns-server 8.8.8.8
-```
-
-### 2. Blindagem contra Servidores Rogue (`DHCP Snooping`)
-Ativação global do monitoramento de pacotes DHCP e definição de portas confiáveis (Trusted) para evitar ataques de *Man-in-the-Middle*. A remoção da opção 82 foi aplicada para garantir a compatibilidade de pacotes no ambiente de simulação:
-```gns3
+</pre>
+    </td>
+    <!-- COLUNA 2: DHCP SNOOPING -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🚀 2. DHCP Snooping</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
 ip dhcp snooping
 ip dhcp snooping vlan 1
 no ip dhcp snooping information option
-
-! Definindo a interface conectada ao Roteador DHCP Real como confiável
+!
+! Interface conectada ao DHCP Real
 interface FastEthernet0/1
-ip dhcp snooping trust
-```
-
-### 3. Proteção de Portas de Acesso (`Port Security`)
-Configuração restrita na interface do usuário final para memorizar dinamicamente o primeiro endereço MAC conectado (Sticky) e aplicar o desligamento imediato (Shutdown) por hardware em caso de divergência:
-```gns3
+ ip dhcp snooping trust
+</pre>
+    </td>
+    <!-- COLUNA 3: PORT SECURITY -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🚀 3. Port Security</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
 interface FastEthernet0/2
  switchport mode access
  switchport port-security
  switchport port-security maximum 1
  switchport port-security mac-address sticky
  switchport port-security violation shutdown
-```
+</pre>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -128,14 +149,14 @@ Para simular a ameaça, o cabo da interface `FastEthernet0/2` foi desconectado d
 
 ---
 
-## 🛠️ Procedimento de Recuperação e Normalização
+### 🔄 Procedimento de Recuperação e Normalização
+
 Em um cenário real de engenharia de redes, após a remoção física da ameaça e contenção do incidente pela equipe de segurança, a porta afetada precisa ser reativada administrativamente através da CLI do Switch seguindo a ordem correta:
 
-```gns3
-SW-ACESSO-01# configure terminal
-SW-ACESSO-01(config)# interface FastEthernet0/2
-SW-ACESSO-01(config-if)# shutdown       ! Limpa o estado latente de erro (err-disable)
-SW-ACESSO-01(config-if)# no shutdown    ! Restabelece a energia física e o tráfego lógico da porta
+```ios
+interface FastEthernet0/2
+ shutdown      ! Limpa o estado latente de erro (err-disable)
+ no shutdown   ! Restabelece a energia física e o tráfego lógico da porta
 ```
 
 > 💡 **Nota de Mercado & Evolução Tecnológica:**  
