@@ -24,12 +24,53 @@ Sem segurança ativa, o protocolo OSPF aceita adjacências de qualquer dispositi
 ### Evidência do Ataque no Roteador_Invasor:
 Abaixo, comprova-se o invasor com vizinhança em estado `FULL` e a rota interna `192.168.44.0/24` injetada em sua tabela lógica:
 
-![Invasor com Acesso](img/02-cenario-vulnerabilidade.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/02-cenario-vulnerabilidade.png" alt="Invasor com Acesso" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/02-cenario-vulnerabilidade.png" alt="ZOOM do Invasor com Acesso" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ### Visão da Infraestrutura Corporativa Comprometida:
 Tanto a Matriz quanto a Filial aceitam o vizinho malicioso (`66.66.66.66`) sem nenhuma restrição:
 
-![Vizinhança Insegura Geral](img/03-vendo-invasor.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/03-vendo-invasor.png" alt="Vizinhança Insegura Geral" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-vendo-invasor.png" alt="ZOOM da Vizinhança Insegura Geral" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ---
 
@@ -46,7 +87,27 @@ ip ospf message-digest-key 1 md5 kleyson
 ### O Efeito Imediato do Hardening na Matriz:
 Assim que o comando é inserido, o roteador exige pacotes assinados digitalmente. Como os vizinhos não possuem a chave, a vizinhança é ejetada imediatamente por estouro de temporizador (*Dead timer expired*):
 
-![Queda da Vizinhança](img/04-queda-vizinhanca-hardening.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/04-queda-vizinhanca-hardening.png" alt="Queda da Vizinhança" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/04-queda-vizinhanca-hardening.png" alt="Queda da Vizinhança" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 > 💡 *Dica de Diagnóstico: Em ambientes de produção, o comando `debug ip ospf adj` pode ser utilizado em modo de privilégio para analisar erros de incompatibilidade de chaves em tempo real.*
 
@@ -57,22 +118,61 @@ Assim que o comando é inserido, o roteador exige pacotes assinados digitalmente
 ### 1. Reestabelecimento do Link Confiável
 Após padronizar a mesma chave criptográfica na Filial, os roteadores legítimos (Roteador_Matriz e Roteador_Filial) restabelecem a adjacência OSPF em modo seguro (estado FULL). Como evidenciado abaixo, o Roteador_Invasor foi completamente ejetado e não aparece mais na tabela de vizinhos, bloqueado permanentemente por não possuir a senha: 
 
-![Rede Segura Restaurada](img/05-restauracao-conexao.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/05-restauracao-conexao.png" alt="Rede Segura Restaurada" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/05-restauracao-conexao.png" alt="Rede Segura Restaurada" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ### 2. Isolamento e Cegueira Total do Atacante
 Abaixo, a prova de sucesso da segurança: o `Roteador_Invasor` perde todos os vizinhos OSPF e a tabela de rotas perde o conhecimento sobre a rede privada da empresa (a linha com a rota **O** sumiu completamente):
 
-![Invasor Bloqueado](img/06-bloqueio-confirmado.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/06-bloqueio-confirmado.png" alt="Invasor Bloqueado" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/06-bloqueio-confirmado.png" alt="Invasor Bloqueado" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ---
 
-🏁 Conclusão e Próximos Passos
+## 🏁 Conclusão e Próximos Passos
 
 A implementação do Hardening OSPF com MD5 garantiu a integridade do plano de controle e da tabela de rotas da WAN corporativa.
 
-🚀 **Próximos Passos: Segurança de Camada 2**
+### ➡️ Próximos Passos: 🛡️ Segurança de Camada 2
 
-Agora que o trânsito entre roteadores está criptografado e seguro, o próximo risco crítico a mitigar são os ataques internos vindos de dentro da rede local na Camada 2 (Enlace), como usuários maliciosos clonando servidores DHCP ou estourando a tabela MAC das portas dos switches corporativos. Veja a solução com DHCP Snooping e Port Security no link abaixo:
+Agora que o trânsito entre roteadores está criptografado e seguro, o próximo risco crítico a mitigar são os ataques internos vindos de dentro da rede local na Camada 2 (Enlace), como usuários maliciosos clonando servidores DHCP ou estourando a tabela MAC das portas dos switches corporativos. Para analisar a solução com DHCP Snooping e Port Security, acesse o próximo **laboratório** focado em segurança:
 
-👉 **[Acessar Projeto 05: Segurança de Switching (Port Security & DHCP Snooping)](../05-seguranca-switching/)**
-
+👉 **[Acessar Laboratório 05: Segurança de Switching (Port Security & DHCP Snooping)](../05-seguranca-switching/)**
