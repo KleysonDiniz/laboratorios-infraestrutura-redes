@@ -9,7 +9,9 @@ Este projeto demonstra a vulnerabilidade do protocolo OSPF v2 em sua configuraç
 
 Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WAN) e da rede local protegida (LAN):
 
-![Topologia do Laboratório](img/01-topologia.png)
+<p align="center">
+  <img src="img/01-topologia.png" alt="Topologia do Laboratório">
+</p>
 
 ### 📊 Tabela de Endereçamento:
 *   **Rede de Trânsito WAN:** `10.4.4.0/24` (Matriz: `.1` | Filial: `.2` | Invasor: `.66`)
