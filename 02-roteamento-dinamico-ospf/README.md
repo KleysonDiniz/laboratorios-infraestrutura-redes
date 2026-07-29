@@ -13,7 +13,7 @@ Este projeto demonstra a implementação de uma infraestrutura corporativa multi
 
 Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos:
 
-* 💻 **Arquivo do Packet Tracer:** [Roteamento-Dinamico.pkt](src/Roteamento-Dinamico.pkt)
+* 💻 **Arquivo do Packet Tracer:** [Roteamento-Dinamico-OSPF.pkt](src/Roteamento-Dinamico-OSPF.pkt)
 * 📄 **CLI - Roteador A (Router-A):** [Roteador-A.cfg](src/Roteador-A.cfg)
 * 📄 **CLI - Roteador B (Router-B):** [Roteador-B.cfg](src/Roteador-B.cfg)
 * 📄 **CLI - Roteador C (Router-C):** [Roteador-C.cfg](src/Roteador-C.cfg)
