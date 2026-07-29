@@ -122,7 +122,7 @@ Abaixo está listada a tabela de vizinhança lida a partir do Roteador Central (
 
 <!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/02-ospf-neighbor-table.png" alt="Tabela de Vizinhos OSPF" width="40%">
+  <img src="img/02-ospf-neighbor-table.png" alt="Tabela de Vizinhos OSPF" width="65%">
 </p>
 
 <!-- Tabela invisível original que garante a centralização e o botão com borda -->
@@ -182,9 +182,32 @@ Abaixo, a evidência do terminal comprovando a conectividade com 0% de perda (Pi
 
 <!-- Imagem reduzida centralizada -->
 <p align="center">
-  <img src="img/04-connectivity-validation-tests.png" alt="Validação de Conectividade Ping e Tracert" width="40%">
+  <img src="img/04-connectivity-validation-tests.png" alt="Validação de Conectividade Ping e Tracert" width="35%">
 </p>
 
 <!-- Tabela invisível original que garante a centralização e o botão com borda -->
 <table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
   <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/04-connectivity-validation-tests.png" alt="ZOOM Validação de Conectividade Ping e Tracert" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🔄 Evolução deste Laboratório: Alta Disponibilidade
+
+Com o roteamento dinâmico OSPF operacional nesta topologia, o próximo passo essencial de engenharia é mitigar o risco de falhas físicas de hardware na borda da rede corporativa.
+
+Para analisar como garantir a redundância de primeiro salto e manter os hosts online mesmo em quedas críticas, acesse a evolução deste projeto com o protocolo HSRP:
+
+👉 **[Acessar Laboratório 03: Alta Disponibilidade (HSRP)](../03-alta-disponibilidade-hsrp/)**
