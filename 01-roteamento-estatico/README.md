@@ -5,7 +5,7 @@ Este projeto demonstra a implementação de uma infraestrutura de rede corporati
 ---
 
 ## 🗺️ Topologia da Rede
-![Topologia do Projeto Estático](img/network-topology.png)
+![Topologia do Projeto Estático](img/01-network-topology.png)
 
 ## 📁 Arquivos do Laboratório
 
@@ -98,7 +98,7 @@ ip route 192.168.20.0 255.255.255.0 10.0.0.5
 ### 📋 4. Auditoria da Tabela de Roteamento (Router-A)
 Abaixo está a evidência da tabela lida diretamente no equipamento via comando `show ip route`. É possível verificar as rotas corporativas mapeadas com a letra **S** (Static), confirmando que o encaminhamento manual foi inserido com sucesso na memória do dispositivo:
 
-![Tabela de Roteamento Router-A](img/router-a-routing-table.png)
+![Tabela de Roteamento Router-A](img/02-router-a-routing-table.png)
 
 ---
 
@@ -118,7 +118,7 @@ Para validar a convergência das tabelas de rotas e o correto funcionamento do e
 
 Abaixo, a evidência do terminal combinando o **Ping** (provando 100% de sucesso e 0% de perda) e o **Tracert** (provando a precisão do caminho desenhado de ponta a ponta):
 
-![Validação de Conectividade Ping e Tracert](img/connectivity-validation-tests.png)
+![Validação de Conectividade Ping e Tracert](img/03-connectivity-validation-tests.png)
 
 ---
 
