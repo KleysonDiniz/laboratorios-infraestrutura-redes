@@ -14,9 +14,9 @@ Este projeto demonstra a implementação de uma arquitetura de infraestrutura de
 
 Abaixo estão indexados o diagrama lógico, a topologia executável e os backups CLI brutos extraídos diretamente dos ativos configurados:
 
-* 💻 **Arquivo do Packet Tracer:** [cenario-hsrp.pkt](./scr/cenario-hsrp.pkt)
-* 📄 **CLI - Roteador Principal:** [Roteador_Principal.cfg](./scr/Roteador_Principal.cfg)
-* 📄 **CLI - Roteador Backup:** [Roteador_Backup.cfg](./scr/Roteador_Backup.cfg)
+* 💻 **Arquivo do Packet Tracer:** [cenario-hsrp.pkt](./src/cenario-hsrp.pkt)
+* 📄 **CLI - Roteador Principal:** [Roteador_Principal.cfg](./src/Roteador_Principal.cfg)
+* 📄 **CLI - Roteador Backup:** [Roteador_Backup.cfg](./src/Roteador_Backup.cfg)
 
 ---
 
