@@ -20,10 +20,10 @@ Abaixo está o design físico e lógico do ambiente de trânsito multiacesso (WA
 
 Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
 
-* 💻 **Arquivo do Packet Tracer:** [Seguranca-ospf-md5.pkt](scr/Seguranca-ospf-md5.pkt)
-* 📄 **CLI - Roteador Matriz:** [Roteador-Matriz.cfg](scr/Roteador-Matriz.cfg)
-* 📄 **CLI - Roteador Filial:** [Roteador-Filial.cfg](scr/Roteador-Filial.cfg)
-* 📄 **CLI - Roteador Invasor:** [Roteador-Invasor.cfg](scr/Roteador-Invasor.cfg)
+* 💻 **Arquivo do Packet Tracer:** [Seguranca-ospf-md5.pkt](src/Seguranca-ospf-md5.pkt)
+* 📄 **CLI - Roteador Matriz:** [Roteador-Matriz.cfg](src/Roteador-Matriz.cfg)
+* 📄 **CLI - Roteador Filial:** [Roteador-Filial.cfg](src/Roteador-Filial.cfg)
+* 📄 **CLI - Roteador Invasor:** [Roteador-Invasor.cfg](src/Roteador-Invasor.cfg)
 
 ---
 
