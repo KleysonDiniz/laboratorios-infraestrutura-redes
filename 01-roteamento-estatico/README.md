@@ -5,7 +5,9 @@ Este projeto demonstra a implementação de uma infraestrutura de rede corporati
 ---
 
 ## 🗺️ Topologia da Rede
-![Topologia do Projeto Estático](img/01-network-topology.png)
+<p align="center">
+  <img src="img/01-network-topology.png" alt="Topologia do Projeto Estático">
+</p>
 
 ## 📁 Arquivos do Laboratório
 
@@ -98,7 +100,27 @@ ip route 192.168.20.0 255.255.255.0 10.0.0.5
 ### 📋 4. Auditoria da Tabela de Roteamento (Router-A)
 Abaixo está a evidência da tabela lida diretamente no equipamento via comando `show ip route`. É possível verificar as rotas corporativas mapeadas com a letra **S** (Static), confirmando que o encaminhamento manual foi inserido com sucesso na memória do dispositivo:
 
-![Tabela de Roteamento Router-A](img/02-router-a-routing-table.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/02-router-a-routing-table.png" alt="Tabela de Roteamento Router-A" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/02-router-a-routing-table.png" alt="ZOOM Tabela de Roteamento Router-A" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -118,7 +140,28 @@ Para validar a convergência das tabelas de rotas e o correto funcionamento do e
 
 Abaixo, a evidência do terminal combinando o **Ping** (provando 100% de sucesso e 0% de perda) e o **Tracert** (provando a precisão do caminho desenhado de ponta a ponta):
 
-![Validação de Conectividade Ping e Tracert](img/03-connectivity-validation-tests.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/03-connectivity-validation-tests.png" alt="Validação de Conectividade Ping e Tracert" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-connectivity-validation-tests.png" alt="ZOOM Validação de Conectividade Ping e Tracert" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ---
 
