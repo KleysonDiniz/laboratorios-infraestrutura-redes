@@ -1,133 +1,183 @@
-# 🌐 Laboratório de Roteamento Estático Corporativo
+# Laboratório 05: Segurança de Ativos em Camada 2 (Port Security & DHCP Snooping)
 
-Este projeto demonstra a implementação de uma infraestrutura de rede corporativa multi-setorial segmentada logicamente por VLANs, com roteamento de borda configurado de forma totalmente estática e manual (`ip route`) interligando três localidades principais.
+## 📌 Cenário e Objetivo do Laboratório
+
+Este laboratório apresenta a implementação prática de mecanismos de segurança de Camada 2 (Enlace) em switches Cisco corporativos. O objetivo principal é blindar a infraestrutura de rede local contra ameaças de intrusão e engenharia social através dos recursos de **Port Security (Sticky Mode)** e **DHCP Snooping (Trusted/Untrusted Ports)**, mitigando vetores críticos como a clonagem ou estouro de endereços MAC (MAC Spoofing/Flooding) e a introdução de servidores DHCP maliciosos (Rogue DHCP) na LAN corporativa.
+
+O cenário simula uma situação de ataque onde um invasor desconecta o terminal de um funcionário homologado para tentar ganhar acesso à rede através da mesma tomada física da parede, acionando os gatilhos automatizados de defesa do Switch.
 
 ---
 
-## 🗺️ Topologia da Rede
-![Topologia do Projeto Estático](img/network-topology.png)
+## 🗺️ Topologia da Rede e Fluxo de Segurança
+
+Abaixo está o mapeamento visual do comportamento da infraestrutura de rede durante a execução dos testes, evidenciando o contraste entre o tráfego permitido e o bloqueio imediato da ameaça utilizando a estratégia de cabo único na interface **`Fa0/2`**:
+
+<p align="center">
+  <img src="img/01-topologia-fluxo.png" alt="Topologia de Rede - Antes e Depois da Mitigação" width="70%">
+</p>
 
 ## 📁 Arquivos do Laboratório
 
-Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos:
+Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
 
-* 💻 **Arquivo do Packet Tracer:** [Roteamento-Estatico.pkt](src/Roteamento-Estatico.pkt)
-* 📄 **CLI - Roteador A (Router-A):** [Roteador-A.cfg](src/Roteador-A.cfg)
-* 📄 **CLI - Roteador B (Router-B):** [Roteador-B.cfg](src/Roteador-B.cfg)
-* 📄 **CLI - Roteador C (Router-C):** [Roteador-C.cfg](src/Roteador-C.cfg)
-
----
-
-## 📈 Planejamento de Endereçamento IP (VLSM por Localidade)
-O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços:
-
-### 🔗 Redes de Trânsito (Backbone Ponto a Ponto)
-Os links que conectam os roteadores de borda entre si utilizam a máscara **`/30` (255.255.255.252)**. Esta configuração é o padrão absoluto da indústria para redes de trânsito ponto a ponto, pois libera exatamente 2 endereços IP válidos por enlace, eliminando qualquer desperdício de escopo IPv4 no backbone corporativo:
-* **Link Roteador A ↔ Roteador B:** Rede `10.0.0.0/30` (IPs úteis: `.1` e `.2`)
-* **Link Roteador B ↔ Roteador C:** Rede `10.0.0.4/30` (IPs úteis: `.5` e `.6`)
-
-### Roteador "A" (esquerdo): Rede `192.168.10.0`
-
-| Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
-| :--- | :---: | :--- | :---: | :--- | :---: | :--- |
-| **TI** - VLAN 10 | 50 | `255.255.255.192` (/26) | 64 | `.0` / `.63` | `.1` | `.2` até `.62` |
-| **Vendas** - VLAN 20 | 20 | `255.255.255.224` (/27) | 32 | `.64` / `.95` | `.65` | `.66` até `.94` |
-| **RH** - VLAN 30 | 10 | `255.255.255.240` (/28) | 16 | `.96` / `.111` | `.97` | `.98` até `.110` |
-
-### Roteador "B" (meio): Rede `192.168.20.0`
-
-| Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
-| :--- | :---: | :--- | :---: | :--- | :---: | :--- |
-| **Central Atend.** - VLAN 10 | 15 | `255.255.255.224` (/27) | 32 | `.0` / `.31` | `.1` | `.2` até `.30` |
-| **Centro Distrib.** - VLAN 20 | 5 | `255.255.255.240` (/28) | 16 | `.32` / `.47` | `.33` | `.34` até `.46` |
-
-### Roteador "C" (direito): Rede `192.168.30.0`
-
-| Setor / VLAN | Hosts | Máscara / CIDR | Salto | Rede / Broadcast | Gateway | IPs Válidos (PCs) |
-| :--- | :---: | :--- | :---: | :--- | :---: | :--- |
-| **Setor Financeiro** - VLAN 10 | 50 | `255.255.255.192` (/26) | 64 | `.0` / `.63` | `.1` | `.2` até `.62` |
-| **Setor Operacional** - VLAN 20 | 20 | `255.255.255.224` (/27) | 32 | `.64` / `.95` | `.65` | `.66` até `.94` |
-| **Almoxarifado** - VLAN 30 | 10 | `255.255.255.240` (/28) | 16 | `.96` / `.111` | `.97` | `.98` até `.110` |
+* 💻 **Arquivo do Packet Tracer:** [seguranca-switching.pkt](scr/Seguranca-switching.pkt)
+* 📄 **CLI - Roteador Gateway Matriz (GW-MATRIZ):** [GW-MATRIZ.cfg](scr/GW-MATRIZ.cfg)
+* 📄 **CLI - Switch de Acesso (SW-ACESSO-01):** [SW-ACESSO-01.cfg](scr/SW-ACESSO-01.cfg)
 
 ---
 
-## 💻 Configurações na CLI (Subinterfaces & Tabelas de Roteamento)
+## ⚙️ Configurações Aplicadas via CLI
 
-### 🔌 1. Ativação do Gateway Inter-VLAN (Exemplo Roteador "A")
-Comandos cruciais utilizados para ativar o entroncamento (*Router-on-a-Stick*) através do protocolo dot1Q:
-```text
-interface GigabitEthernet0/0.10
- encapsulation dot1Q 10
- ip address 192.168.10.1 255.255.255.192
+Abaixo estão destacados os papéis de engenharia de cada elemento da infraestrutura e seus respectivos blocos de comandos fundamentais organizados em uma matriz comparativa:
+
+* 🛡️ **1. Servidor DHCP Legítimo (GW-MATRIZ):** Criação do pool de endereçamento IPv4 corporativo para distribuição dinâmica de parâmetros de rede.
+* 🛡️ **2. Blindagem contra Servidores Rogue (DHCP Snooping):** Ativação global do monitoramento de pacotes DHCP e definição de portas confiáveis (Trusted) para evitar ataques de *Man-in-the-Middle*, com a remoção da opção 82 para compatibilidade de simulação.
+* 🛡️ **3. Proteção de Portas de Acesso (Port Security):** Configuração restrita na interface do usuário final para memorizar dinamicamente o primeiro endereço MAC conectado (Sticky) e aplicar o desligamento imediato (Shutdown) por hardware em caso de divergência.
+
+Segue as configurações essenciais de cada ativo de infraestrutura foram organizadas em matriz lado a lado:
+
+<table width="100%" style="border: none !important; background: transparent !important; border-collapse: collapse; table-layout: fixed; margin: 0; padding: 0;">
+  <tr style="border: none !important; background: transparent !important;">
+    <!-- COLUNA 1: SERVIDOR DHCP LEGÍTIMO -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🚀 1. Servidor DHCP Legítimo</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
+interface GigabitEthernet0/0/0
+ ip address 192.168.50.1 255.255.255.0
+ no shutdown
+exit
+ip dhcp pool LAN_KLEYSON
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.1
+ dns-server 8.8.8.8
+</pre>
+    </td>
+    <!-- COLUNA 2: DHCP SNOOPING -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🚀 2. DHCP Snooping</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
+ip dhcp snooping
+ip dhcp snooping vlan 1
+no ip dhcp snooping information option
 !
-interface GigabitEthernet0/0.20
- encapsulation dot1Q 20
- ip address 192.168.10.65 255.255.255.224
-!
-interface GigabitEthernet0/0.30
- encapsulation dot1Q 30
- ip address 192.168.10.97 255.255.255.240
-```
-
-### 🎛️ 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
-Para suportar o tráfego de múltiplas VLANs trafegando simultaneamente pelo mesmo cabo físico até o roteador, a porta de uplink do switch principal foi configurada explicitamente em modo tronco (*Trunk*):
-```text
-interface GigabitEthernet0/1
- switchport mode trunk
-```
-
-### 🛣️ 3. Comandos de Roteamento Estático (`ip route`)
-Para otimização da tabela de roteamento e redução de overhead, foi aplicada a técnica de **Sumarização de Rotas (Classless/24)**. Em vez de declarar cada sub-rede individualmente, os roteadores apontam para o bloco cheio de cada localidade através dos próximos saltos (*Next-Hop*):
-
-**No Roteador "A" (esquerdo):**
-```text
-ip route 192.168.20.0 255.255.255.0 10.0.0.2
-ip route 192.168.30.0 255.255.255.0 10.0.0.2
-```
-
-**No Roteador "B" (meio):**
-```text
-ip route 192.168.10.0 255.255.255.0 10.0.0.1
-ip route 192.168.30.0 255.255.255.0 10.0.0.6
-```
-
-**No Roteador "C" (direito):**
-```text
-ip route 192.168.10.0 255.255.255.0 10.0.0.5
-ip route 192.168.20.0 255.255.255.0 10.0.0.5
-```
-
-### 📋 4. Auditoria da Tabela de Roteamento (Router-A)
-Abaixo está a evidência da tabela lida diretamente no equipamento via comando `show ip route`. É possível verificar as rotas corporativas mapeadas com a letra **S** (Static), confirmando que o encaminhamento manual foi inserido com sucesso na memória do dispositivo:
-
-![Tabela de Roteamento Router-A](img/router-a-routing-table.png)
+! Interface conectada ao DHCP Real
+interface FastEthernet0/1
+ ip dhcp snooping trust
+</pre>
+    </td>
+    <!-- COLUNA 3: PORT SECURITY -->
+    <td valign="top" width="33%" style="border: none !important; background: transparent !important; padding: 4px;">
+      <strong>🚀 3. Port Security</strong>
+      <br><br>
+<pre style="font-size: 11px !important; margin: 0 !important; padding: 8px !important;">
+interface FastEthernet0/2
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation shutdown
+</pre>
+    </td>
+  </tr>
+</table>
 
 ---
 
-## 🧪 Validação e Testes de Conectividade
+## 🧪 Validação dos Testes e Resultados
 
-Para validar a convergência das tabelas de rotas e o correto funcionamento do ecossistema, foi realizado um teste duplo de conectividade ICMP (Ping) e rastreamento de caminho lógico (Tracert) atravessando toda a infraestrutura física do laboratório.
+### Fase 1: Estado Saudável da Rede (Usuário Homologado)
+Ao conectar o terminal `PC - LEGITIMO` na interface `FastEthernet0/2`, o Switch intercepta a comunicação através do DHCP Snooping, popula as tabelas dinâmicas e grava de forma persistente o endereço físico legítimo através do recurso `Sticky`.
+*   **Comandos de Auditoria:** `show port-security interface FastEthernet0/2` e `show interface FastEthernet0/2`.
+*   **Status Obtido:** Porta operacional em estado saudável (`Secure-up`), tráfego de dados totalmente permitido e link ativo (`connected`).
 
-### Escopo do Cenário de Teste:
-* **Origem:** PC "A" (Departamento de TI) | IP: `192.168.10.10`
-* **Destino:** PC "H" (Almoxarifado) | IP: `192.168.30.100`
+### Estado Saudável - Usuário Autorizado:
 
-### Análise do Fluxo de Tráfego (Salto por Salto):
-1. O tráfego parte do PC "A" e bate no gateway local `192.168.10.1` (Router-A).
-2. O Router-A checa sua tabela estática, localiza o destino na sumarização `/24` e encaminha o pacote para o próximo salto `10.0.0.2` (Router-B).
-3. O Router-B repassa o pacote pelo link de trânsito até o próximo salto `10.0.0.6` (Router-C).
-4. O Router-C entrega o pacote diretamente na interface de destino final na rede local.
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/02-estado-saudavel-legitimo.png" alt="Estado Saudável - Usuário Autorizado" width="40%">
+</p>
 
-Abaixo, a evidência do terminal combinando o **Ping** (provando 100% de sucesso e 0% de perda) e o **Tracert** (provando a precisão do caminho desenhado de ponta a ponta):
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/02-estado-saudavel-legitimo.png" alt="Zoom Estado Saudável - Usuário Autorizado" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
-![Validação de Conectividade Ping e Tracert](img/connectivity-validation-tests.png)
+### Fase 2: Flagrante de Ataque e Bloqueio de Intruso (`err-disabled`)
+Para simular a ameaça, o cabo da interface `FastEthernet0/2` foi desconectado do usuário legítimo e inserido no terminal `PC - INVASOR`. No momento em que o intruso tentou gerar o primeiro frame de dados na rede forçando um pedido de IP via `ipconfig /renew`, os mecanismos de defesa agiram instantaneamente:
+*   **Mecanismo de Defesa:** O Switch identificou que o endereço MAC de origem não correspondia ao MAC autorizado no histórico `Sticky`.
+*   **Status Obtido:** A política de violação executou o congelamento imediato da porta por hardware. O status foi alterado para **`Secure-shutdown`** e a interface entrou em modo **`(err-disabled)`**, cortando totalmente a conectividade do invasor e gerando alertas automáticos nos logs do sistema (Syslog).
+
+### Bloqueio do Invasor - Err-Disabled:
+
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/03-bloqueio-invasor-errdisabled.png" alt="Bloqueio do Invasor - Err-Disabled" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-bloqueio-invasor-errdisabled.png" alt="Zoom Bloqueio do Invasor - Err-Disabled" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
 
 ---
 
-## 🔄 Evolução deste Laboratório: Roteamento Dinâmico
+## 🔄 Procedimento de Recuperação e Normalização
 
-Embora o roteamento estático com VLSM seja extremamente seguro e eficiente para redes de pequeno porte, ele se torna complexo de gerenciar manualmente à medida que a infraestrutura corporativa cresce e ganha novos caminhos redundantes.
+Em um cenário real de engenharia de redes, após a remoção física da ameaça e contenção do incidente pela equipe de segurança, a porta afetada precisa ser reativada administrativamente através da CLI do Switch seguindo a ordem correta:
 
-Para analisar como automatizar a descoberta de redes e acelerar o tempo de convergência em larga escala, acesse a evolução deste projeto com o protocolo OSPF:
+```ios
+interface FastEthernet0/2
+ shutdown      ! Limpa o estado latente de erro (err-disable)
+ no shutdown   ! Restabelece a energia física e o tráfego lógico da porta
+```
 
-👉 **[Acessar Laboratório 02: Roteamento Dinâmico (OSPF)](../02-roteamento-dinamico-ospf/)**
+> 💡 **Nota de Mercado & Evolução Tecnológica:**  
+> Embora o *Port Security* estático (modo *Sticky*) seja altamente eficiente e amplamente empregado na atualidade para proteger ativos fixos críticos — tais como **servidores em data centers, câmeras de monitoramento (CFTV) e terminais de autoatendimento (caixas eletrônicos)** —, o mercado corporativo de grande porte adota uma abordagem dinâmica para portas de usuários comuns.  
+> 
+> Para evitar os alarmes falsos gerados pela alta rotatividade de notebooks nas mesas de trabalho, a indústria moderna utiliza o padrão **IEEE 802.1X (Network Access Control)** integrado a servidores centrais de autenticação (como *Cisco ISE* ou *Aruba ClearPass*). Nesse modelo avançado, a porta do switch nasce bloqueada por padrão e o dispositivo só obtém acesso à rede corporativa após validar com sucesso um certificado digital ou credenciais corporativas válidas, mitigando o ataque na origem sem a necessidade de intervenção manual do administrador.
+
+---
+
+## 🏁 Conclusão e Encerramento da Trilha
+
+A implementação bem-sucedida do DHCP Snooping e do Port Security consolidou a segurança de Camada 2 nesta LAN corporativa, neutralizando vetores de ataque internos críticos e garantindo a integridade dos serviços de rede. 
+
+Com este projeto, encerro com sucesso a trilha prática de **Infraestrutura e Hardening de Redes Cisco** do portfólio.
+
+---
+
+### 🚀 Próximos Passos: Nova Trilha com MikroTik RouterOS!
+
+Agora que dominamos os conceitos de roteamento, alta disponibilidade e segurança aplicados ao ecossistema Cisco, o próximo passo na minha evolução técnica como Engenheiro de Redes será explorar o ecossistema **MikroTik**. 
+
+Na próxima trilha de laboratórios, abordarei a implementação prática de roteamento avançado, gerência de tráfego, VPNs e firewalls utilizando o **MikroTik RouterOS**. Fique atento às atualizações do meu perfil para acompanhar o lançamento do novo repositório!
+
+👉 **[Voltar ao Repositório Principal (HUB de Redes)](https://github.com/KleysonDiniz/laboratorios-infraestrutura-redes)**
+
+
