@@ -20,9 +20,9 @@ Abaixo está o mapeamento visual do comportamento da infraestrutura de rede dura
 
 Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos após a mitigação da vulnerabilidade:
 
-* 💻 **Arquivo do Packet Tracer:** [seguranca-switching.pkt](scr/Seguranca-switching.pkt)
-* 📄 **CLI - Roteador Gateway Matriz (GW-MATRIZ):** [GW-MATRIZ.cfg](scr/GW-MATRIZ.cfg)
-* 📄 **CLI - Switch de Acesso (SW-ACESSO-01):** [SW-ACESSO-01.cfg](scr/SW-ACESSO-01.cfg)
+* 💻 **Arquivo do Packet Tracer:** [seguranca-switching.pkt](src/Seguranca-switching.pkt)
+* 📄 **CLI - Roteador Gateway Matriz (GW-MATRIZ):** [GW-MATRIZ.cfg](src/GW-MATRIZ.cfg)
+* 📄 **CLI - Switch de Acesso (SW-ACESSO-01):** [SW-ACESSO-01.cfg](src/SW-ACESSO-01.cfg)
 
 ---
 
