@@ -5,13 +5,22 @@ Este projeto demonstra a implementação de uma infraestrutura corporativa multi
 ---
 
 ## 🗺️ Topologia da Rede
+<p align="center">
+  <img src="img/01-network-topology.png" alt="Topologia do Projeto Dinâmico">
+</p>
 
-![Topologia do Projeto Dinâmico](img/topologia-dinamico.png)
+## 📁 Arquivos do Laboratório
+
+Abaixo estão indexados a topologia executável do Cisco Packet Tracer e as configurações dos dispositivos (CLI) extraídas diretamente dos ativos:
+
+* 💻 **Arquivo do Packet Tracer:** [Roteamento-Dinamico.pkt](src/Roteamento-Dinamico.pkt)
+* 📄 **CLI - Roteador A (Router-A):** [Roteador-A.cfg](src/Roteador-A.cfg)
+* 📄 **CLI - Roteador B (Router-B):** [Roteador-B.cfg](src/Roteador-B.cfg)
+* 📄 **CLI - Roteador C (Router-C):** [Roteador-C.cfg](src/Roteador-C.cfg)
 
 ---
 
 ## 📈 Planejamento de Endereçamento IP (VLSM por Localidade)
-
 O projeto utiliza três redes principais distintas, com escopos fatiados de forma cirúrgica utilizando Máscaras de Tamanho Variável (VLSM) para mitigar o desperdício de endereços:
 
 ### 🔗 Redes de Trânsito (Backbone Ponto a Ponto)
@@ -50,28 +59,26 @@ Diferente do roteamento estático, o OSPF calcula os caminhos dinamicamente. Par
 
 ### 🔌 1. Ativação do Gateway Inter-VLAN (Exemplo Roteador "A")
 Comandos cruciais utilizados para ativar o entroncamento (*Router-on-a-Stick*) através do protocolo dot1Q:
-
 ```text
 interface GigabitEthernet0/0.10
  encapsulation dot1Q 10
  ip address 192.168.40.1 255.255.255.192
-
 interface GigabitEthernet0/0.20
  encapsulation dot1Q 20
  ip address 192.168.40.65 255.255.255.224
-
 interface GigabitEthernet0/0.30
  encapsulation dot1Q 30
  ip address 192.168.40.97 255.255.255.240
 ```
-### 🏷️ 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
+
+### 🎛️ 2. Configuração de Trunking nos Switches (IEEE 802.1Q)
 Para suportar as subinterfaces lógicas configuradas nos roteadores de borda, a porta de uplink do switch foi definida em modo tronco:
 ```text
 interface GigabitEthernet0/1
  switchport mode trunk
 ```
 
-### 🔄 2. Ativação do Protocolo OSPF v2
+### 🔄 3. Ativação do Protocolo OSPF v2
 
 **No Roteador "A" (esquerdo):**
 ```text
@@ -108,22 +115,76 @@ router ospf 1
 
 ---
 
+## 📋 Auditoria e Adjacência do Protocolo
+
+### 🤝 1. Tabela de Vizinhos OSPF (Router-B)
+Abaixo está listada a tabela de vizinhança lida a partir do Roteador Central (B). O status **`FULL`** comprova que a sincronização da base de dados entre os ativos foi concluída com sucesso. Os papéis de **`DR`** (Designated Router/Líder) e **`BDR`** (Backup Designated Router/Vice) foram estabelecidos de forma automatizada para organizar o tráfego do protocolo no backbone:
+
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/02-ospf-neighbor-table.png" alt="Tabela de Vizinhos OSPF" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/02-ospf-neighbor-table.png" alt="ZOOM Tabela de Vizinhos OSPF" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
+### 🛣️ 2. Tabela de Roteamento Dinâmico (Router-A)
+Abaixo está evidenciada a tabela de rotas interna do Router-A gerada via comando `show ip route`. É possível comprovar o sucesso da automação através das redes mapeadas com o prefixo **`O`** (OSPF), provando que o roteador aprendeu os blocos remotos dinamicamente, sem intervenção manual:
+
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/03-router-a-routing-table.png" alt="Tabela de Roteamento Router-A" width="40%">
+</p>
+
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
+    <td style="border: none !important; background: transparent !important; text-align: center; padding: 0;">
+      <details style="display: inline-block;">
+        <summary style="cursor: pointer; list-style: none;">
+          <code><strong>🔍 Clique aqui para aplicar ZOOM na imagem acima</strong></code>
+        </summary>
+        <br><br>
+        <p align="center">
+          <img src="img/03-router-a-routing-table.png" alt="ZOOM Tabela de Roteamento Router-A" width="100%">
+        </p>
+      </details>
+    </td>
+  </tr>
+</table>
+
+---
+
 ## 🧪 Validação e Testes de Conectividade
 
-Para validar o processo de convergência automática do protocolo OSPF e garantir a alcançabilidade global das rotas de forma dinâmica, foi realizado um teste de ICMP (Ping) entre as duas extremidades da infraestrutura corporativa.
+Para validar o processo de convergência automática do protocolo OSPF e garantir a alcançabilidade global das rotas de forma dinâmica, foi realizado um teste duplo de ICMP (Ping) e rastreamento lógico (Tracert) atravessando toda a topologia de borda.
 
 ### Escopo do Cenário de Teste:
-* **Origem:** PC "N" (Setor Financeiro - Roteador C) | IP: `192.168.60.10`
-* **Destino:** PC "K" (Setor de RH - Roteador A) | IP: `192.168.40.100`
-* **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e estabeleceram adjacência (vizinhança) em Area 0. O Roteador "C" aprendeu a rota para o bloco `192.168.40.96/28` (VLAN 30) de forma totalmente automática através dos anúncios dinâmicos do OSPF, encaminhando os pacotes com sucesso através do backbone até o destino, sem qualquer mapeamento estático manual.
+* **Origem:** PC "I" (Setor Financeiro - Roteador A) | IP: `192.168.40.10`
+* **Destino:** PC "P" (Almoxarifado - Roteador C) | IP: `192.168.60.100`
+* **Convergência Dinâmica:** Os roteadores trocaram pacotes Hello e estabeleceram adjacência (vizinhança) em Area 0. O Roteador "A" aprendeu a rota para o bloco remoto de destino de forma totalmente automática através dos anúncios dinâmicos do OSPF, encaminhando os pacotes com sucesso através do backbone, sem qualquer mapeamento estático manual.
 
-Abaixo, a evidência do terminal comprovando o sucesso na comunicação ponta a ponta:
+Abaixo, a evidência do terminal comprovando a conectividade com 0% de perda (Ping) junto à rota salto por salto mapeada perfeitamente até a extremidade da rede (Tracert):
 
-![Evidência de Ping Sucesso](img/ping-dinamico.png)
+<!-- Imagem reduzida centralizada -->
+<p align="center">
+  <img src="img/04-connectivity-validation-tests.png" alt="Validação de Conectividade Ping e Tracert" width="40%">
+</p>
 
-## 🔄 Evolução deste Laboratório: Alta Disponibilidade
-
-Com o roteamento dinâmico OSPF operacional nesta topologia, o próximo passo essencial de engenharia é mitigar o risco de falhas físicas de hardware na borda da rede corporativa.
-
-Para analisar como garantir a redundância de primeiro salto e manter os hosts online mesmo em quedas críticas, acesse a evolução deste projeto com o protocolo HSRP:
-👉 **[Acessar Laboratório 03: Alta Disponibilidade (HSRP)](../03-alta-disponibilidade-hsrp/)**
+<!-- Tabela invisível original que garante a centralização e o botão com borda -->
+<table align="center" style="border: none !important; background: transparent !important; border-collapse: collapse;">
+  <tr style="border: none !important; background: transparent !important;">
