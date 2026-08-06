@@ -157,10 +157,18 @@ interface FastEthernet0/2
  no shutdown   ! Restabelece a energia física e o tráfego lógico da porta
 ```
 
-> 💡 **Nota de Mercado & Evolução Tecnológica:**  
-> Embora o *Port Security* estático (modo *Sticky*) seja altamente eficiente e amplamente empregado na atualidade para proteger ativos fixos críticos — tais como **servidores em data centers, câmeras de monitoramento (CFTV) e terminais de autoatendimento (caixas eletrônicos)** —, o mercado corporativo de grande porte adota uma abordagem dinâmica para portas de usuários comuns.  
-> 
-> Para evitar os alarmes falsos gerados pela alta rotatividade de notebooks nas mesas de trabalho, a indústria moderna utiliza o padrão **IEEE 802.1X (Network Access Control)** integrado a servidores centrais de autenticação (como *Cisco ISE* ou *Aruba ClearPass*). Nesse modelo avançado, a porta do switch nasce bloqueada por padrão e o dispositivo só obtém acesso à rede corporativa após validar com sucesso um certificado digital ou credenciais corporativas válidas, mitigando o ataque na origem sem a necessidade de intervenção manual do administrador.
+---
+
+### 🛡️ Nota de Engenharia: Análise Crítica e Vetores de Evolução em Camada 2
+
+Embora a implementação de **Port Security** e **DHCP Snooping** tenha mitigado com sucesso os ataques simulados neste laboratório, a engenharia de segurança de redes reconhece limitações estruturais nessas ferramentas clássicas de defesa:
+
+1. **Fragilidade do Port Security (Modo Sticky)**: A validação baseada puramente em endereços MAC é vulnerável a ataques de *MAC Spoofing* (clonagem). Um invasor pode interceptar o endereço de um ativo fixo autorizado (como impressoras, câmeras de CFTV ou terminais de autoatendimento) para burlar a segurança física da porta do switch. Além disso, o modo estático gera alta carga operacional e alarmes falsos em mesas de trabalho devido à alta rotatividade de notebooks corporativos.
+2. **Dependência Crítica de Escopo**: O DHCP Snooping protege o ecossistema de endereçamento contra servidores falsos (*Rogue DHCP*), mas opera de forma isolada na tabela de concessões. Sem a ativação conjunta do **DAI (Dynamic ARP Inspection)**, a rede local permanece exposta a envenenamentos de tabela ARP (*ARP Poisoning / Man-in-the-Middle*).
+
+**Evolução Corporativa (Enterprise Security):**
+Para cenários de produção modernos e de alta rotatividade, a arquitetura recomendada evolui substituindo o controle manual de MAC pelo padrão **IEEE 802.1X (Network Access Control)** integrado a servidores centrais de autenticação (como *Cisco ISE* ou *Aruba ClearPass*). Isso eleva a segurança para uma abordagem baseada em identidade (credenciais de usuário ou certificados digitais de máquina), isolando portas dinamicamente via VLANs de quarentena sem a necessidade de intervenção manual do administrador a cada troca de dispositivo.
+
 
 ---
 
