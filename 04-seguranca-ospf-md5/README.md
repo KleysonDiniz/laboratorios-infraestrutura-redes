@@ -178,6 +178,18 @@ Abaixo, a prova de sucesso da segurança: o `Roteador_Invasor` perde todos os vi
 </table>
 
 ---
+### 🛡️ Nota de Engenharia: Análise de Riscos e Mitigação do Algoritmo MD5
+
+Embora a autenticação por **Message Digest (MD5)** tenha isolado com sucesso o Roteador Invasor neste laboratório corporativo, o algoritmo é matematicamente considerado obsoleto pela indústria de segurança devido à sua suscetibilidade a **ataques de colisão** (onde duas entradas diferentes geram o mesmo hash) e à viabilidade de ataques de força bruta rápidos com hardware moderno.
+
+**Por que o MD5 foi mantido neste cenário?**
+1. **Compatibilidade Legacy**: O protocolo OSPFv2 (RFC 2328) clássico adota o MD5 como padrão de mercado, sendo vital para garantir a interoperabilidade em ecossistemas multi-fabricante com ativos legados de redes corporativas.
+2. **Evolução de Segurança**: A implementação representa um salto crítico sobre o tráfego em texto plano (cleartext), mitigando o roubo passivo de tabelas de rotas lógicas por sniffing.
+
+**Evolução para Ambientes de Produção (Compliance Moderno):**
+Em cenários reais de infraestrutura de alta segurança, as boas práticas recomendam a evolução para o protocolo **OSPFv3** ou o uso de **Criptografia com HMAC-SHA-256** (conforme RFC 5709), blindando o plano de controle de borda contra vetores avançados de intrusão lógicos.
+
+---
 
 ## 🏁 Conclusão e Próximos Passos
 
