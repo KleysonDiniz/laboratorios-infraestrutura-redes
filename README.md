@@ -46,4 +46,4 @@ Cada laboratório simula uma dor real de infraestrutura. As implementações de 
 
 ### 🤝 Conecte-se comigo
 
-* **LinkedIn:** [Acessar Perfil Profissional](https://linkedin.com)
+* **LinkedIn:** [Acessar Perfil Profissional](https://www.linkedin.com/in/kleysondiniz/)
