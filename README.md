@@ -9,7 +9,7 @@ Todos os cenários foram construídos seguindo as boas práticas dos fabricantes
 
 ## 👨‍💻 Sobre Mim
 
-* **Formação:** Bacharel em **Ciência da Computação** (Concluído) e Pós-graduando em **Engenharia de Redes de Computadores** (Em conclusão).
+* **Formação:** Bacharel em **Ciência da Computação** (Concluído) e Pós-graduado em **Engenharia de Redes de Computadores**.
 * **Certificações/Cursos:** Formação preparatória para a certificação internacional **MikroTik Certified Network Associate (MTCNA)** em conclusão; Estágios institucionais de **Linux Ubuntu e Redes TCP/IP** realizados no **Centro de Telemática do Exército Brasileiro**.
 * **Background Profissional:** 8 anos de serviço ativo no Exército Brasileiro, desenvolvendo sólida disciplina operacional, conformidade com processos rígidos de segurança, liderança, gestão de incidentes sob pressão (ITSM) e resiliência.
 
