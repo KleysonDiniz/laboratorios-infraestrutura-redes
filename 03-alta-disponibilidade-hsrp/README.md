@@ -42,7 +42,7 @@ O cenário foi projetado para simular o backbone de uma borda corporativa espalh
 ## ⚙️ Configurações Aplicadas via CLI
 Abaixo estão destacados os papéis de engenharia de cada elemento da infraestrutura e seus respectivos blocos de comandos fundamentais organizados em uma matriz comparativa:
 
-* **🛠️ 1. Roteador_Principal (Gateway Ativo):** Definido como o gateway prioritário (`priority 110`). O comando `preempt` garante que ele reivindique e retome o papel de líder automaticamente assim que voltar a ficar online após uma falha. O mecanismo de `standby track` foi aplicado **apenas nele**, pois é o ativo ativo que precisa monitorar continuamente seu próprio link de subida (Uplink) para rebaixar sua prioridade caso sofra uma queda física.
+* **🛠️ 1. Roteador_Principal (Gateway Ativo):** Definido como o gateway prioritário (`priority 110`). O comando `preempt` garante que ele reivindique e retome o papel de líder automaticamente assim que voltar a ficar online após uma falha. O mecanismo de `standby track` foi aplicado **apenas nele**, pois é o ativo que precisa monitorar continuamente seu próprio link de subida (Uplink) para rebaixar sua prioridade caso sofra uma queda física.
 * **🛠️ 2. Roteador_Backup (Gateway Standby):** Configurado com a prioridade padrão customizada de `105` para responder de forma cirúrgica às métricas de failover da rede local, assumindo o tráfego instantaneamente apenas se o principal falhar ou perder prioridade.
 * **🛠️ 3. Switch_Core (Distribuição Superior - Modelo 3650):** Responsável por rodar o processo OSPF no ativo de topo por meio de uma Interface VLAN lógica (SVI). Isso garante o trânsito multiacesso resiliente de Camada 3 com a borda, sem a ocorrência de erros de overlap ou desperdício de portas físicas.
 
