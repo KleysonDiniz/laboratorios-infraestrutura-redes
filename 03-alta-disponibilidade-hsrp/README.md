@@ -129,7 +129,7 @@ O laboratório de Alta Disponibilidade foi validado simulando um cenário real d
 1. **Estado Inicial (Normalidade):** O `Roteador_Principal` assume a liderança como `Active` (Prioridade 110) e o `Roteador_Backup` fica em modo de espera como `Standby` (Prioridade 105). Ambos respondem pelo IP Virtual do Gateway (`192.168.70.1`).
 2. **O Evento de Falha (Queda do Link):** Ao aplicar o comando `shutdown` na interface ativa, o tráfego em tempo real sofre uma perda imperceptível de apenas 1 pacote (conforme evidenciado pela linha de *Request timed out* no prompt de comando do PC0).
 3. **Mecanismo de Failover (Inversão de Papéis):** O `Roteador_Backup` detecta a ausência de mensagens de Hello e altera instantaneamente o seu estado de `Standby -> Active`, assumindo o encaminhamento de pacotes da LAN de forma transparente para o usuário final.
-4. **Resiliência e Preempção (Retorno à Normalidade):** Ao aplicar o comando `no shutdown` na interface do `Roteador_Principal`, a adjacência OSPF é restabelecida (`LOADING to FULL`). Devido à configuração do comando `preempt`, o roteador principalpf reivindica o seu posto de líder na infraestrutura corporativa, alterando de forma automatizada o seu estado de volta para `Standby -> Active`.
+4. **Resiliência e Preempção (Retorno à Normalidade):** Ao aplicar o comando `no shutdown` na interface do `Roteador_Principal`, a adjacência OSPF é restabelecida (`LOADING to FULL`). Devido à configuração do comando `preempt`, o roteador principal reivindica o seu posto de líder na infraestrutura corporativa, alterando de forma automatizada o seu estado de volta para `Standby -> Active`.
 
 ---
 
