@@ -26,8 +26,8 @@ O cenário foi projetado para simular o backbone de uma borda corporativa espalh
 ### 🌐 1. Rede de Trânsito Superior / Backbone (OSPF Area 0)
 * **Sub-rede física corporativa:** `10.0.0.0/29` (Máscara: `255.255.255.248`)
 * **IP Switch_Core (Interface VLAN 10):** `10.0.0.1`
-* **IP Roteador_Principal (Interface GigabitEthernet 0/1):** `10.0.0.3`
-* **IP Roteador_Backup (Interface GigabitEthernet 0/1):** `10.0.0.4`
+* **IP Roteador_Principal (Interface GigabitEthernet 0/1):** `10.0.0.2`
+* **IP Roteador_Backup (Interface GigabitEthernet 0/1):** `10.0.0.3`
 
 > 💡 **Nota de Escalabilidade:** Embora uma máscara `/30` fosse suficiente para conectar apenas dois roteadores, optou-se pela máscara `/29` para reservar 4 IPs adicionais. Isso segue boas práticas de engenharia, permitindo a futura integração de dispositivos como **Firewalls de borda**, **Servidores de Monitoramento (Zabbix/PRTG)** ou um **Roteador de Contingência** neste segmento, sem a necessidade de renumeração complexa da rede.
 
@@ -63,7 +63,7 @@ interface GigabitEhernet0/0
  standby 1 track GigabitEhernet0/1
 !
 interface GigabitEhernet0/1
- ip address 10.0.0.3 255.255.255.248
+ ip address 10.0.0.2 255.255.255.248
 !
 router ospf 1
  network 10.0.0.0 0.0.0.7 area 0
@@ -82,7 +82,7 @@ interface GigabitEhernet0/0
  standby 1 preempt
 !
 interface GigabitEhernet0/1
- ip address 10.0.0.4 255.255.255.248
+ ip address 10.0.0.3 255.255.255.248
 !
 router ospf 1
  network 10.0.0.0 0.0.0.7 area 0
