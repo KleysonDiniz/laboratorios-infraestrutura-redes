@@ -149,13 +149,26 @@ Para simular a ameaça, o cabo da interface `FastEthernet0/2` foi desconectado d
 
 ## 🔄 Procedimento de Recuperação e Normalização
 
-Em um cenário real de engenharia de redes, após a remoção física da ameaça e contenção do incidente pela equipe de segurança, a porta afetada precisa ser reativada administrativamente através da CLI do Switch seguindo a ordem correta:
+Em um cenário real de engenharia de redes, após a remoção física da ameaça e contenção do incidente pela equipe de segurança, existem duas abordagens para restabelecer a porta afetada:
+
+### 1. Reativação Manual (Utilizada no Laboratório / Packet Tracer)
+Em ambientes simulados ou quando não há automação configurada, a interface precisa ser reativada administrativamente através da CLI do Switch seguindo a ordem correta:
 
 ```ios
 interface FastEthernet0/2
  shutdown      ! Limpa o estado latente de erro (err-disable)
  no shutdown   ! Restabelece a energia física e o tráfego lógico da porta
 ```
+
+### 2. Reativação Automática Corporativa (*Errdisable Recovery*)
+Em ambientes corporativos reais com milhares de portas, o desbloqueio manual torna-se inviável. Para resolver isso, switches Cisco utilizam o recurso **Errdisable Recovery**, que monitora interfaces bloqueadas e tenta reativá-las automaticamente após um tempo determinado (caso o dispositivo legítimo já esteja reconectado):
+
+```ios
+errdisable recovery cause psecure-violation   ! Habilita a recuperação automática para violações de Port Security
+errdisable recovery interval 300              ! Define o tempo de espera para reativação (300 segundos / 5 minutos)
+```
+
+> **Nota de Laboratório:** Os comandos de *Errdisable Recovery* são suportados apenas em equipamentos físicos Cisco IOS ou emuladores de imagem real (como GNS3 e EVE-NG), não estando disponíveis no Cisco Packet Tracer.
 
 ---
 
