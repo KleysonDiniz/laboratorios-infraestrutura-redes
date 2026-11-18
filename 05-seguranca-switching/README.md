@@ -167,9 +167,6 @@ Em ambientes corporativos reais com milhares de portas, o desbloqueio manual tor
 errdisable recovery cause psecure-violation   ! Habilita a recuperação automática para violações de Port Security
 errdisable recovery interval 300              ! Define o tempo de espera para reativação (300 segundos / 5 minutos)
 ```
-
-> **Nota de Laboratório:** Os comandos de *Errdisable Recovery* são suportados apenas em equipamentos físicos Cisco IOS ou emuladores de imagem real (como GNS3 e EVE-NG), não estando disponíveis no Cisco Packet Tracer.
-
 ---
 
 ### 🛡️ Nota de Engenharia: Análise Crítica e Vetores de Evolução em Camada 2
